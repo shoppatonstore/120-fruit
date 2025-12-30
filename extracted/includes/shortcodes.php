@@ -56,15 +56,13 @@ function ftp_header_shortcode() {
     <header class="ftp-header" id="ftp-header">
         <div class="ftp-header-container">
             <div class="ftp-logo">
-                <?php if (!empty($logo_url)) : ?>
+                <?php 
+                // Use custom logo if set, otherwise use the default uploaded logo
+                $display_logo_url = !empty($logo_url) ? $logo_url : ftp_get_logo_variant_url('header');
+                ?>
                 <a href="<?php echo esc_url($home_url); ?>" class="ftp-logo-image-link">
-                    <img src="<?php echo esc_url($logo_url); ?>" alt="120 Fruit Therapy" class="ftp-logo-image ftp-logo-animated">
+                    <img src="<?php echo esc_url($display_logo_url); ?>" alt="120 Fruit Therapy" class="ftp-logo-image ftp-logo-animated">
                 </a>
-                <?php else : ?>
-                <a href="<?php echo esc_url($home_url); ?>" class="ftp-logo-text ftp-logo-animated">
-                    <?php echo ftp_get_animated_header_logo_svg(); ?>
-                </a>
-                <?php endif; ?>
             </div>
             <button class="ftp-mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="ftp-hamburger"></span>
@@ -562,13 +560,11 @@ function ftp_footer_shortcode() {
         <div class="ftp-container">
             <div class="ftp-footer-grid">
                 <div class="ftp-footer-brand">
-                    <?php if (!empty($logo_url)) : ?>
-                    <img src="<?php echo esc_url($logo_url); ?>" alt="120 Fruit Therapy" class="ftp-footer-logo-image ftp-logo-animated">
-                    <?php else : ?>
-                    <div class="ftp-footer-logo-text ftp-logo-animated">
-                        <?php echo ftp_get_animated_footer_logo_svg(); ?>
-                    </div>
-                    <?php endif; ?>
+                    <?php 
+                    // Use custom logo if set, otherwise use the default uploaded logo
+                    $display_logo_url = !empty($logo_url) ? $logo_url : ftp_get_logo_variant_url('footer');
+                    ?>
+                    <img src="<?php echo esc_url($display_logo_url); ?>" alt="120 Fruit Therapy" class="ftp-footer-logo-image ftp-logo-animated">
                     <p class="ftp-footer-tagline">Health &amp; Wellness Through Fresh Fruits</p>
                 </div>
                 <div class="ftp-footer-links">

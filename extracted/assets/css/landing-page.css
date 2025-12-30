@@ -321,27 +321,52 @@
     transform: scale(1.05);
 }
 
-/* Animated logo SVG styling */
-.ftp-logo-header-animated {
-    height: 35px;
-    width: auto;
-    display: block;
-}
-
+/* Animated logo image styling - uses actual uploaded logo with CSS animations */
 .ftp-logo-animated {
     transition: transform 0.3s ease, filter 0.3s ease;
+    animation: ftp-logo-glow 3s ease-in-out infinite, ftp-logo-subtle-float 4s ease-in-out infinite;
 }
 
 .ftp-logo-animated:hover {
     transform: scale(1.08);
-    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    animation: ftp-logo-glow-intense 1s ease-in-out infinite;
 }
 
-/* Logo image with animation class */
-.ftp-logo-image.ftp-logo-animated {
-    animation: ftp-logo-pulse 3s ease-in-out infinite;
+/* Glowing animation for the logo */
+@keyframes ftp-logo-glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+    }
+    33% {
+        filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+    }
+    66% {
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 0, 0, 0.5));
+    }
 }
 
+/* Subtle floating animation */
+@keyframes ftp-logo-subtle-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+/* Intense glow on hover */
+@keyframes ftp-logo-glow-intense {
+    0%, 100% {
+        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.9)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.8));
+    }
+}
+
+/* Legacy pulse animation - kept for compatibility */
 @keyframes ftp-logo-pulse {
     0%, 100% {
         filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 215, 0, 0.4));
@@ -1771,21 +1796,27 @@
     position: relative;
 }
 
-/* Footer animated logo SVG */
-.ftp-logo-footer-animated {
-    height: 50px;
+/* Footer logo image styling - uses actual uploaded logo */
+.ftp-footer-logo-image {
+    height: 60px;
     width: auto;
-    display: block;
+    max-width: 200px;
+    object-fit: contain;
     margin-bottom: 12px;
+    display: block;
+    /* High-quality image rendering */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: high-quality;
 }
 
-.ftp-footer-logo-text.ftp-logo-animated {
-    transition: transform 0.3s ease, filter 0.3s ease;
+.ftp-footer-logo-image.ftp-logo-animated {
+    animation: ftp-logo-glow 3s ease-in-out infinite, ftp-logo-subtle-float 4s ease-in-out infinite;
 }
 
-.ftp-footer-logo-text.ftp-logo-animated:hover {
+.ftp-footer-logo-image.ftp-logo-animated:hover {
     transform: scale(1.05);
-    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.7));
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.7));
 }
 
 .ftp-footer-logo-text .ftp-logo-straw {
