@@ -961,3 +961,69 @@ function ftp_get_animated_footer_logo_svg() {
         </circle>
     </svg>';
 }
+
+/**
+ * Get small inline SVG icon for map location
+ * Compact version for inline text use
+ * 
+ * @return string SVG markup
+ */
+function ftp_get_inline_location_icon() {
+    return '<svg class="ftp-inline-icon ftp-inline-location" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 1.2em; height: 1.2em; vertical-align: middle; display: inline-block;">
+        <defs>
+            <linearGradient id="inlineLocGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#FF0000"/>
+                <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+        </defs>
+        <path d="M12 2 C7 2, 4 6, 4 10 C4 15, 12 22, 12 22 C12 22, 20 15, 20 10 C20 6, 17 2, 12 2" fill="url(#inlineLocGrad)"/>
+        <circle cx="12" cy="10" r="3" fill="#1B0000"/>
+    </svg>';
+}
+
+/**
+ * Get small inline SVG chat icon for floating button
+ * Compact version with animation
+ * 
+ * @return string SVG markup
+ */
+function ftp_get_inline_chat_icon() {
+    return '<svg class="ftp-inline-icon ftp-inline-chat" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 1.5rem; height: 1.5rem;">
+        <defs>
+            <linearGradient id="inlineChatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFFFFF"/>
+                <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+        </defs>
+        <path d="M4 4 L20 4 Q22 4, 22 6 L22 15 Q22 17, 20 17 L10 17 L6 21 L6 17 L4 17 Q2 17, 2 15 L2 6 Q2 4, 4 4" fill="url(#inlineChatGrad)"/>
+        <circle cx="8" cy="10.5" r="1.5" fill="#1B0000">
+            <animate attributeName="r" values="1;1.5;1" dur="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="12" cy="10.5" r="1.5" fill="#1B0000">
+            <animate attributeName="r" values="1;1.5;1" dur="1s" repeatCount="indefinite" begin="0.2s"/>
+        </circle>
+        <circle cx="16" cy="10.5" r="1.5" fill="#1B0000">
+            <animate attributeName="r" values="1;1.5;1" dur="1s" repeatCount="indefinite" begin="0.4s"/>
+        </circle>
+    </svg>';
+}
+
+/**
+ * Get small inline SVG nutritionist/chat icon for special plans
+ * 
+ * @return string SVG markup
+ */
+function ftp_get_inline_nutritionist_icon() {
+    return '<svg class="ftp-inline-icon ftp-inline-nutritionist" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 1.2em; height: 1.2em; vertical-align: middle; display: inline-block; margin-right: 5px;">
+        <defs>
+            <linearGradient id="inlineNutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#FF0000"/>
+                <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+        </defs>
+        <path d="M4 4 L20 4 Q22 4, 22 6 L22 15 Q22 17, 20 17 L10 17 L6 21 L6 17 L4 17 Q2 17, 2 15 L2 6 Q2 4, 4 4" fill="url(#inlineNutGrad)"/>
+        <circle cx="8" cy="10.5" r="1.5" fill="#1B0000"/>
+        <circle cx="12" cy="10.5" r="1.5" fill="#1B0000"/>
+        <circle cx="16" cy="10.5" r="1.5" fill="#1B0000"/>
+    </svg>';
+}

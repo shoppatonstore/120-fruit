@@ -540,7 +540,7 @@ function ftp_map_shortcode() {
         <div class="ftp-map-overlay">
             <div class="ftp-map-info">
                 <h3>Find Us Here</h3>
-                <p>📍 Marlima Building, University of Nigeria Nsukka, Enugu State, Nigeria</p>
+                <p><?php echo ftp_get_inline_location_icon(); ?> Marlima Building, University of Nigeria Nsukka, Enugu State, Nigeria</p>
             </div>
         </div>
     </section>
@@ -612,7 +612,7 @@ function ftp_footer_shortcode() {
     <div class="ftp-floating-support" id="ftp-floating-support">
         <div class="ftp-support-popup">Place Order</div>
         <a href="<?php echo esc_url(ftp_get_menu_page_url()); ?>" class="ftp-support-btn">
-            <span class="ftp-support-icon">💬</span>
+            <span class="ftp-support-icon"><?php echo ftp_get_inline_chat_icon(); ?></span>
         </a>
     </div>
     <?php

@@ -143,7 +143,7 @@ $plans = ftp_get_special_plans();
                 <p style="color: var(--ftp-text-muted); margin-bottom: 30px;">Contact our team today to get personalized recommendations and start your transformation!</p>
                 <?php $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in starting a wellness plan. Please help me choose the right one for my goals."); ?>
                 <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-primary ftp-btn-large" target="_blank" rel="noopener">
-                    💬 Chat With Our Nutritionist
+                    <?php echo ftp_get_inline_nutritionist_icon(); ?> Chat With Our Nutritionist
                 </a>
             </div>
         </div>
