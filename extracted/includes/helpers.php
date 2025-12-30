@@ -101,7 +101,7 @@ function ftp_get_menu_items() {
             'icon' => '🍨',
             'description' => 'Layered parfaits with fresh fruits, granola, and creamy Greek yogurt',
             'items' => array(
-                array('name' => 'Premium Parfait', 'price' => '₦8,500', 'description' => 'Greek Yoghurt, Blueberry, Granola, Chocolate, Strawberry, Cashew Nuts, Coconuts, Grapes, Banana, Raisin, Almond, Groundnuts, Sprinkles'),
+                array('name' => 'Premium Parfait', 'price' => '₦8,500', 'description' => 'Greek Yoghurt, Blueberry, Granola, Chocolate, Strawberry, Cashew Nuts, Coconuts, Grapes, Banana, Raisin, Almond, Groundnuts, Sprinkles (550ml)'),
                 array('name' => 'Standard Parfait', 'price' => '₦7,000', 'description' => 'Greek Yoghurt, Granola, Chocolate, Cashew Nuts, Coconuts, Grape, Banana, Raisin, Groundnut (550ml)'),
                 array('name' => 'Mini Standard Parfait', 'price' => '₦4,000', 'description' => 'Greek Yoghurt, Granola, Cashew Nuts, Coconuts, Grape, Groundnut (300ml)'),
                 array('name' => 'Nut Parfait', 'price' => '₦6,500', 'description' => 'Greek Yoghurt, Cashew Nuts, Coconut, Groundnut, Peanut, Almond (550ml)'),
