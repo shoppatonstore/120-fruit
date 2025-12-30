@@ -299,9 +299,9 @@
 
 /* Logo image styling - maintains small header height */
 .ftp-logo-image {
-    height: 45px;
+    height: 32px;
     width: auto;
-    max-width: 150px;
+    max-width: 80px;
     object-fit: contain;
     display: block;
     /* High-quality image rendering */
