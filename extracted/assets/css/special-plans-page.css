@@ -1,0 +1,370 @@
+/**
+ * 120 Fruit Therapy - Special Plans Page Styles
+ */
+
+/* Special Plans Full Page */
+.ftp-plans-full {
+    background: linear-gradient(180deg, var(--ftp-black) 0%, var(--ftp-dark-burgundy) 50%, var(--ftp-black) 100%);
+    padding: 120px 0 80px;
+    min-height: 100vh;
+}
+
+.ftp-plans-full .ftp-section-header {
+    margin-bottom: 60px;
+}
+
+/* Plan Detail Card */
+.ftp-plan-detail-card {
+    background: var(--ftp-card-bg);
+    border: 1px solid var(--ftp-card-border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    transition: var(--ftp-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing border effect */
+.ftp-plan-detail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ftp-gold), var(--ftp-primary-red), transparent);
+    animation: ftp-plan-border-glow 4s ease-in-out infinite;
+}
+
+@keyframes ftp-plan-border-glow {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+}
+
+.ftp-plan-detail-card:hover {
+    border-color: var(--ftp-gold);
+    box-shadow: 0 20px 40px rgba(255, 0, 0, 0.15), var(--ftp-gold-glow);
+}
+
+.ftp-plan-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+/* Hide icon - replaced with glowing title */
+.ftp-plan-detail-icon {
+    display: none;
+}
+
+.ftp-plan-detail-info {
+    flex: 1;
+}
+
+.ftp-plan-detail-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--ftp-white) 0%, var(--ftp-gold-light) 50%, var(--ftp-white) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: ftp-title-shimmer 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+}
+
+.ftp-plan-detail-desc {
+    color: var(--ftp-text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Plan Options Grid */
+.ftp-plan-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.ftp-plan-option {
+    background: linear-gradient(145deg, rgba(255, 0, 0, 0.05), rgba(27, 0, 0, 0.3));
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: var(--ftp-transition);
+}
+
+.ftp-plan-option:hover {
+    transform: translateY(-5px);
+    border-color: var(--ftp-primary-red);
+    box-shadow: var(--ftp-red-glow);
+}
+
+.ftp-plan-option-duration {
+    font-size: 1.2rem;
+    color: var(--ftp-white);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.ftp-plan-option-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--ftp-gold-light), var(--ftp-gold), var(--ftp-gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    animation: ftp-price-glow 2s ease-in-out infinite;
+}
+
+@keyframes ftp-price-glow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+    50% { filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8)); }
+}
+
+.ftp-plan-option .ftp-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+}
+
+/* Plan Benefits */
+.ftp-plan-benefits {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ftp-plan-benefits-title {
+    font-size: 1.1rem;
+    color: var(--ftp-white);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.ftp-plan-benefits-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.ftp-plan-benefits-list li {
+    background: rgba(255, 0, 0, 0.1);
+    color: var(--ftp-text-muted);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+/* Plan Comparison Table */
+.ftp-plans-comparison {
+    margin-top: 60px;
+    overflow-x: auto;
+}
+
+.ftp-plans-comparison h3 {
+    font-size: 1.5rem;
+    color: var(--ftp-white);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.ftp-comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.ftp-comparison-table th,
+.ftp-comparison-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ftp-comparison-table th {
+    background: rgba(255, 0, 0, 0.1);
+    color: var(--ftp-white);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.ftp-comparison-table td {
+    color: var(--ftp-text-muted);
+}
+
+.ftp-comparison-table tbody tr:hover {
+    background: rgba(255, 0, 0, 0.05);
+}
+
+.ftp-comparison-table .ftp-plan-name {
+    color: var(--ftp-white);
+    font-weight: 600;
+}
+
+.ftp-comparison-table .ftp-price {
+    color: var(--ftp-primary-red);
+    font-weight: 700;
+}
+
+/* Testimonials Section */
+.ftp-plans-testimonials {
+    margin-top: 80px;
+}
+
+.ftp-plans-testimonials h3 {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--ftp-white) 0%, var(--ftp-gold-light) 50%, var(--ftp-white) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ftp-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.ftp-testimonial-card {
+    background: var(--ftp-card-bg);
+    border: 1px solid var(--ftp-card-border);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: var(--ftp-transition);
+}
+
+.ftp-testimonial-card:hover {
+    border-color: var(--ftp-gold);
+    box-shadow: var(--ftp-gold-glow);
+}
+
+/* Hide testimonial avatar icon */
+.ftp-testimonial-avatar {
+    display: none;
+}
+
+.ftp-testimonial-text {
+    color: var(--ftp-text-muted);
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.ftp-testimonial-name {
+    color: var(--ftp-white);
+    font-weight: 600;
+}
+
+.ftp-testimonial-plan {
+    color: var(--ftp-primary-red);
+    font-size: 0.9rem;
+}
+
+/* FAQ Section */
+.ftp-plans-faq {
+    margin-top: 80px;
+}
+
+.ftp-plans-faq h3 {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--ftp-white) 0%, var(--ftp-gold-light) 50%, var(--ftp-white) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ftp-faq-item {
+    background: var(--ftp-card-bg);
+    border: 1px solid var(--ftp-card-border);
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: var(--ftp-transition);
+}
+
+.ftp-faq-item:hover {
+    border-color: rgba(255, 0, 0, 0.3);
+}
+
+.ftp-faq-question {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--ftp-white);
+    font-weight: 500;
+}
+
+.ftp-faq-question:hover {
+    color: var(--ftp-primary-red);
+}
+
+.ftp-faq-toggle {
+    font-size: 1.5rem;
+    color: var(--ftp-gold);
+    transition: var(--ftp-transition);
+    text-shadow: var(--ftp-gold-glow);
+}
+
+.ftp-faq-item.active .ftp-faq-toggle {
+    transform: rotate(45deg);
+}
+
+.ftp-faq-answer {
+    padding: 0 25px 20px;
+    color: var(--ftp-text-muted);
+    line-height: 1.6;
+    display: none;
+}
+
+.ftp-faq-item.active .ftp-faq-answer {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .ftp-plan-detail-card {
+        padding: 25px;
+    }
+    
+    .ftp-plan-detail-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ftp-plan-detail-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2.5rem;
+    }
+    
+    .ftp-plan-detail-title {
+        font-size: 1.4rem;
+    }
+    
+    .ftp-plan-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .ftp-testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}

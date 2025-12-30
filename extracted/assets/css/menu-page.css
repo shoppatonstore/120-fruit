@@ -1,0 +1,297 @@
+/**
+ * 120 Fruit Therapy - Menu Page Styles
+ */
+
+/* Menu Page Full */
+.ftp-menu-full {
+    background: linear-gradient(135deg, var(--ftp-black) 0%, var(--ftp-dark-burgundy) 50%, var(--ftp-black) 100%);
+    padding: 120px 0 80px;
+    min-height: 100vh;
+}
+
+.ftp-menu-full .ftp-section-header {
+    margin-bottom: 60px;
+}
+
+/* Category Section */
+.ftp-menu-category {
+    margin-bottom: 60px;
+}
+
+.ftp-category-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing underline animation */
+.ftp-category-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ftp-gold), var(--ftp-primary-red), transparent);
+    animation: ftp-category-glow 3s ease-in-out infinite;
+}
+
+@keyframes ftp-category-glow {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+}
+
+.ftp-category-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--ftp-white) 0%, var(--ftp-gold-light) 50%, var(--ftp-white) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: ftp-title-shimmer 3s ease-in-out infinite;
+    text-shadow: none;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+}
+
+.ftp-category-desc {
+    color: var(--ftp-text-muted);
+    font-size: 1rem;
+    margin-left: auto;
+    max-width: 400px;
+    text-align: right;
+}
+
+/* Menu Items Grid */
+.ftp-menu-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Menu Item Card */
+.ftp-menu-item-card {
+    background: var(--ftp-card-bg);
+    border: 1px solid var(--ftp-card-border);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: var(--ftp-transition);
+}
+
+.ftp-menu-item-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--ftp-primary-red);
+    box-shadow: 0 15px 30px rgba(255, 0, 0, 0.15);
+}
+
+.ftp-menu-item-image {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(27, 0, 0, 0.5));
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    overflow: hidden;
+}
+
+.ftp-menu-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ftp-menu-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.ftp-menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.ftp-menu-item-name {
+    font-size: 1.2rem;
+    color: var(--ftp-white);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.ftp-menu-item-card:hover .ftp-menu-item-name {
+    color: var(--ftp-gold-light);
+}
+
+.ftp-menu-item-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    white-space: nowrap;
+    background: linear-gradient(135deg, var(--ftp-gold-light), var(--ftp-gold), var(--ftp-gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+    animation: ftp-price-glow 2s ease-in-out infinite;
+}
+
+@keyframes ftp-price-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4)); }
+    50% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7)); }
+}
+
+.ftp-menu-item-desc {
+    color: var(--ftp-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.ftp-menu-item-order {
+    margin-top: auto;
+}
+
+.ftp-menu-item-order .ftp-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+}
+
+/* Menu Category Navigation */
+.ftp-menu-nav {
+    position: sticky;
+    top: 80px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    margin-bottom: 40px;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.ftp-menu-nav-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ftp-primary-red) var(--ftp-dark-burgundy);
+}
+
+.ftp-menu-nav-list::-webkit-scrollbar {
+    height: 4px;
+}
+
+.ftp-menu-nav-list::-webkit-scrollbar-track {
+    background: var(--ftp-dark-burgundy);
+}
+
+.ftp-menu-nav-list::-webkit-scrollbar-thumb {
+    background: var(--ftp-primary-red);
+    border-radius: 2px;
+}
+
+.ftp-menu-nav-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--ftp-card-bg);
+    border: 1px solid var(--ftp-card-border);
+    border-radius: 25px;
+    color: var(--ftp-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: var(--ftp-transition);
+}
+
+.ftp-menu-nav-item:hover,
+.ftp-menu-nav-item.active {
+    background: linear-gradient(135deg, var(--ftp-primary-red), var(--ftp-gold-dark));
+    color: var(--ftp-white);
+    border-color: var(--ftp-gold);
+    box-shadow: var(--ftp-gold-glow), var(--ftp-red-glow);
+}
+
+/* Remove nav icons - not displayed */
+.ftp-menu-nav-icon {
+    display: none;
+}
+
+/* Back to Top Button for Menu */
+.ftp-menu-back-top {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--ftp-dark-burgundy);
+    border: 2px solid var(--ftp-primary-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--ftp-white);
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--ftp-transition);
+    z-index: 998;
+}
+
+.ftp-menu-back-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ftp-menu-back-top:hover {
+    background: var(--ftp-primary-red);
+    transform: translateY(-5px);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .ftp-category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .ftp-category-desc {
+        margin-left: 0;
+        text-align: left;
+        max-width: 100%;
+    }
+    
+    .ftp-category-title {
+        font-size: 1.4rem;
+    }
+    
+    .ftp-menu-items-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ftp-menu-nav {
+        top: 70px;
+    }
+    
+    .ftp-menu-nav-item {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+}
