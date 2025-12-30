@@ -299,7 +299,7 @@
 
 /* Logo image styling - maintains small header height */
 .ftp-logo-image {
-    height: 35px;
+    height: 45px;
     width: auto;
     max-width: 150px;
     object-fit: contain;
@@ -321,28 +321,34 @@
     transform: scale(1.05);
 }
 
-/* Animated logo image styling - uses actual uploaded logo with CSS animations */
+/* Animated logo image styling - uses exact uploaded transparent logo with color animations */
 .ftp-logo-animated {
     transition: transform 0.3s ease, filter 0.3s ease;
-    animation: ftp-logo-glow 3s ease-in-out infinite, ftp-logo-subtle-float 4s ease-in-out infinite;
+    animation: ftp-logo-color-glow 3s ease-in-out infinite, ftp-logo-subtle-float 4s ease-in-out infinite;
 }
 
 .ftp-logo-animated:hover {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
-    animation: ftp-logo-glow-intense 1s ease-in-out infinite;
+    transform: scale(1.1);
+    animation: ftp-logo-hover-glow 0.8s ease-in-out infinite;
 }
 
-/* Glowing animation for the logo */
-@keyframes ftp-logo-glow {
+/* Color glow animation - cycles through red and gold glows */
+@keyframes ftp-logo-color-glow {
     0%, 100% {
-        filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+        filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6)) 
+                drop-shadow(0 0 4px rgba(255, 0, 0, 0.4));
     }
-    33% {
-        filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+    25% {
+        filter: drop-shadow(0 0 12px rgba(255, 50, 50, 0.7)) 
+                drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
     }
-    66% {
-        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 0, 0, 0.5));
+    50% {
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) 
+                drop-shadow(0 0 15px rgba(255, 0, 0, 0.5));
+    }
+    75% {
+        filter: drop-shadow(0 0 14px rgba(255, 100, 0, 0.7)) 
+                drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
     }
 }
 
@@ -352,11 +358,34 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-2px);
+        transform: translateY(-3px);
     }
 }
 
-/* Intense glow on hover */
+/* Hover glow animation - more intense */
+@keyframes ftp-logo-hover-glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.8)) 
+                drop-shadow(0 0 25px rgba(255, 215, 0, 0.6))
+                drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 25px rgba(255, 0, 0, 1)) 
+                drop-shadow(0 0 35px rgba(255, 215, 0, 0.8))
+                drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+/* Legacy animations - kept for compatibility */
+@keyframes ftp-logo-glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+    }
+}
+
 @keyframes ftp-logo-glow-intense {
     0%, 100% {
         filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
@@ -366,7 +395,6 @@
     }
 }
 
-/* Legacy pulse animation - kept for compatibility */
 @keyframes ftp-logo-pulse {
     0%, 100% {
         filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 215, 0, 0.4));
@@ -1796,9 +1824,9 @@
     position: relative;
 }
 
-/* Footer logo image styling - uses actual uploaded logo */
+/* Footer logo image styling - uses exact uploaded transparent logo */
 .ftp-footer-logo-image {
-    height: 60px;
+    height: 70px;
     width: auto;
     max-width: 200px;
     object-fit: contain;
@@ -1811,12 +1839,12 @@
 }
 
 .ftp-footer-logo-image.ftp-logo-animated {
-    animation: ftp-logo-glow 3s ease-in-out infinite, ftp-logo-subtle-float 4s ease-in-out infinite;
+    animation: ftp-logo-color-glow 3s ease-in-out infinite, ftp-logo-subtle-float 4s ease-in-out infinite;
 }
 
 .ftp-footer-logo-image.ftp-logo-animated:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.7));
+    transform: scale(1.08);
+    animation: ftp-logo-hover-glow 0.8s ease-in-out infinite;
 }
 
 .ftp-footer-logo-text .ftp-logo-straw {

@@ -613,14 +613,22 @@ function ftp_get_logo_straw_svg($gradient_id = 'goldGradient') {
 
 /**
  * Get logo URL for different sizes/sections
- * Uses the actual uploaded logo image
+ * Uses the exact uploaded transparent logo in different sizes
  * 
  * @param string $size Size variant: 'header', 'footer', 'favicon', 'site-icon', 'original'
  * @return string Logo URL
  */
 function ftp_get_logo_variant_url($size = 'header') {
-    // All sizes use the original uploaded logo - sizing is handled via CSS
-    return FTP_PLUGIN_URL . 'images/logos/logo-original.png';
+    $logo_files = array(
+        'header' => 'logo-header.png',       // 120px width
+        'footer' => 'logo-footer.png',       // 180px width
+        'favicon' => 'logo-favicon.png',     // 64px width
+        'site-icon' => 'logo-site-icon.png', // 180px width
+        'original' => 'logo-original.png',   // Full size
+    );
+    
+    $file = isset($logo_files[$size]) ? $logo_files[$size] : 'logo-header.png';
+    return FTP_PLUGIN_URL . 'images/logos/' . $file;
 }
 
 /**
