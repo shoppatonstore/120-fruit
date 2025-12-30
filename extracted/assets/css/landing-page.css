@@ -321,6 +321,36 @@
     transform: scale(1.05);
 }
 
+/* Animated logo SVG styling */
+.ftp-logo-header-animated {
+    height: 35px;
+    width: auto;
+    display: block;
+}
+
+.ftp-logo-animated {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.ftp-logo-animated:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+}
+
+/* Logo image with animation class */
+.ftp-logo-image.ftp-logo-animated {
+    animation: ftp-logo-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ftp-logo-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 215, 0, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+    }
+}
+
 .ftp-nav-list {
     display: flex;
     list-style: none;
@@ -1247,6 +1277,20 @@
     filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
     transition: transform 0.4s ease, filter 0.4s ease;
     animation: ftp-icon-sparkle-red-gold 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SVG Icon styling for events */
+.ftp-event-svg-icon {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.4s ease;
+}
+
+.ftp-event-card:hover .ftp-event-svg-icon {
+    transform: scale(1.15) rotate(-5deg);
 }
 
 .ftp-event-card:hover .ftp-event-icon {
@@ -1555,6 +1599,20 @@
     filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
     transition: transform 0.4s ease, filter 0.4s ease;
     animation: ftp-icon-sparkle-red-gold 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SVG Icon styling for contact section */
+.ftp-contact-svg-icon {
+    width: 70px;
+    height: 70px;
+    transition: transform 0.4s ease;
+}
+
+.ftp-contact-card:hover .ftp-contact-svg-icon {
+    transform: scale(1.15) rotate(5deg);
 }
 
 @keyframes ftp-icon-sparkle-red-gold {
@@ -1708,9 +1766,26 @@
     background-size: 200% auto;
     animation: ftp-logo-sparkle 2s ease-in-out infinite;
     filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
-    display: inline-block;
+    display: block;
     margin-bottom: 12px;
     position: relative;
+}
+
+/* Footer animated logo SVG */
+.ftp-logo-footer-animated {
+    height: 50px;
+    width: auto;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.ftp-footer-logo-text.ftp-logo-animated {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.ftp-footer-logo-text.ftp-logo-animated:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.7));
 }
 
 .ftp-footer-logo-text .ftp-logo-straw {

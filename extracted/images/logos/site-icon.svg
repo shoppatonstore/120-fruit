@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="siteIconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF0000">
+        <animate attributeName="stop-color" values="#FF0000;#FFD700;#FF0000" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#FF4444"/>
+      <stop offset="100%" style="stop-color:#FFD700">
+        <animate attributeName="stop-color" values="#FFD700;#FF0000;#FFD700" dur="3s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B0000"/>
+      <stop offset="100%" style="stop-color:#000000"/>
+    </linearGradient>
+    
+    <filter id="iconGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="180" height="180" rx="35" fill="url(#bgGradient)"/>
+  
+  <!-- Border glow -->
+  <rect x="2" y="2" width="176" height="176" rx="33" fill="none" stroke="url(#siteIconGradient)" stroke-width="3">
+    <animate attributeName="stroke-width" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  
+  <g transform="translate(20, 50)" filter="url(#iconGlow)">
+    <!-- Number 1 -->
+    <path d="M 8 10 Q 4 6, 14 4 L 14 60 Q 14 65, 8 65 L 20 65 Q 14 65, 14 60 L 14 10" 
+          fill="url(#siteIconGradient)"/>
+    
+    <!-- Number 2 -->
+    <path d="M 28 15 Q 28 4, 48 4 Q 68 4, 68 22 Q 68 38, 38 55 L 68 55 L 68 62 L 28 62 L 28 53 Q 62 32, 62 24 Q 62 10, 48 10 Q 34 10, 34 18" 
+          fill="url(#siteIconGradient)"/>
+    
+    <!-- Number 0 as Coconut -->
+    <ellipse cx="100" cy="35" rx="28" ry="27" fill="url(#siteIconGradient)"/>
+    <ellipse cx="100" cy="37" rx="14" ry="15" fill="#000000" opacity="0.9"/>
+    
+    <!-- Straw -->
+    <line x1="118" y1="28" x2="140" y2="5" stroke="url(#siteIconGradient)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 140 5 Q 146 0, 152 3" stroke="url(#siteIconGradient)" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Sparkles -->
+  <circle cx="160" cy="48" r="4" fill="#FFD700" opacity="0.9">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="148" cy="55" r="2.5" fill="#FFFFFF" opacity="0.8">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite" begin="0.3s"/>
+  </circle>
+  <circle cx="165" cy="58" r="2" fill="#FF4444" opacity="0.7">
+    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+  </circle>
+  
+  <!-- Corner sparkles -->
+  <circle cx="25" cy="25" r="2" fill="#FFD700" opacity="0">
+    <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="155" cy="155" r="2" fill="#FFD700" opacity="0">
+    <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite" begin="1.5s"/>
+  </circle>
+</svg>

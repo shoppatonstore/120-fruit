@@ -10,6 +10,8 @@ if (!defined('ABSPATH')) {
 }
 
 $menu_items = ftp_get_special_plan_menu_items();
+$settings = get_option('ftp_settings', array());
+$special_plan_item_images = isset($settings['special_plan_menu_item_images']) ? $settings['special_plan_menu_item_images'] : array();
 ?>
 
 <div class="ftp-wrapper">
@@ -42,8 +44,22 @@ $menu_items = ftp_get_special_plan_menu_items();
                 </div>
                 
                 <div class="ftp-menu-items-grid">
-                    <?php foreach ($category['items'] as $item) : ?>
+                    <?php foreach ($category['items'] as $index => $item) : 
+                        $item_key = sanitize_title($key . '-' . $item['name']);
+                        $image_url = isset($special_plan_item_images[$item_key]) && !empty($special_plan_item_images[$item_key]) ? $special_plan_item_images[$item_key] : '';
+                    ?>
                     <div class="ftp-menu-item-card ftp-fade-in-up">
+                        <!-- Image Placeholder -->
+                        <div class="ftp-menu-item-image" data-item-key="<?php echo esc_attr($item_key); ?>">
+                            <?php if (!empty($image_url)) : ?>
+                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($item['name']); ?>" loading="lazy">
+                            <?php else : ?>
+                            <div class="ftp-menu-item-placeholder">
+                                <span class="ftp-item-placeholder-icon"><?php echo esc_html($category['icon']); ?></span>
+                                <span class="ftp-item-placeholder-text">Image Coming Soon</span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
                         <div class="ftp-menu-item-content">
                             <div class="ftp-menu-item-header">
                                 <h3 class="ftp-menu-item-name"><?php echo esc_html($item['name']); ?></h3>

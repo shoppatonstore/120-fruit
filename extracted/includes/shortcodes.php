@@ -58,12 +58,11 @@ function ftp_header_shortcode() {
             <div class="ftp-logo">
                 <?php if (!empty($logo_url)) : ?>
                 <a href="<?php echo esc_url($home_url); ?>" class="ftp-logo-image-link">
-                    <img src="<?php echo esc_url($logo_url); ?>" alt="120 Fruit Therapy" class="ftp-logo-image">
+                    <img src="<?php echo esc_url($logo_url); ?>" alt="120 Fruit Therapy" class="ftp-logo-image ftp-logo-animated">
                 </a>
                 <?php else : ?>
-                <a href="<?php echo esc_url($home_url); ?>" class="ftp-logo-text">
-                    120
-                    <?php echo ftp_get_logo_straw_svg('goldGradient'); ?>
+                <a href="<?php echo esc_url($home_url); ?>" class="ftp-logo-text ftp-logo-animated">
+                    <?php echo ftp_get_animated_header_logo_svg(); ?>
                 </a>
                 <?php endif; ?>
             </div>
@@ -357,7 +356,7 @@ function ftp_wellness_events_shortcode() {
             <div class="ftp-events-grid">
                 <?php foreach ($events as $key => $event) : ?>
                 <div class="ftp-event-card ftp-fade-in-up">
-                    <div class="ftp-event-icon"><?php echo esc_html($event['icon']); ?></div>
+                    <div class="ftp-event-icon"><?php echo ftp_get_wellness_event_icon($key); ?></div>
                     <h3 class="ftp-event-title"><?php echo esc_html($event['title']); ?></h3>
                     <p class="ftp-event-desc"><?php echo esc_html($event['description']); ?></p>
                     <ul class="ftp-event-services">
@@ -494,19 +493,19 @@ function ftp_contact_shortcode() {
             </div>
             <div class="ftp-contact-grid">
                 <div class="ftp-contact-card ftp-fade-in-up">
-                    <div class="ftp-contact-icon">📞</div>
+                    <div class="ftp-contact-icon"><?php echo ftp_get_contact_icon('phone'); ?></div>
                     <h3 class="ftp-contact-title">Orders &amp; Deliveries</h3>
                     <p class="ftp-contact-number"><?php echo esc_html(ftp_get_order_phone()); ?></p>
                     <a href="tel:+234<?php echo esc_attr(substr(ftp_get_order_phone(), 1)); ?>" class="ftp-btn ftp-btn-outline">Call Now</a>
                 </div>
                 <div class="ftp-contact-card ftp-fade-in-up">
-                    <div class="ftp-contact-icon">💬</div>
+                    <div class="ftp-contact-icon"><?php echo ftp_get_contact_icon('chat'); ?></div>
                     <h3 class="ftp-contact-title">Special Plan Support</h3>
                     <p class="ftp-contact-number">+234 904 214 6929</p>
                     <a href="tel:+2349042146929" class="ftp-btn ftp-btn-outline">Call Now</a>
                 </div>
                 <div class="ftp-contact-card ftp-fade-in-up">
-                    <div class="ftp-contact-icon">📍</div>
+                    <div class="ftp-contact-icon"><?php echo ftp_get_contact_icon('location'); ?></div>
                     <h3 class="ftp-contact-title">Visit Us</h3>
                     <p class="ftp-contact-address">Come experience our wellness sanctuary</p>
                     <p class="ftp-contact-location">University of Nigeria Nsukka, Marlima Building</p>
@@ -564,12 +563,11 @@ function ftp_footer_shortcode() {
             <div class="ftp-footer-grid">
                 <div class="ftp-footer-brand">
                     <?php if (!empty($logo_url)) : ?>
-                    <img src="<?php echo esc_url($logo_url); ?>" alt="120 Fruit Therapy" class="ftp-footer-logo-image">
+                    <img src="<?php echo esc_url($logo_url); ?>" alt="120 Fruit Therapy" class="ftp-footer-logo-image ftp-logo-animated">
                     <?php else : ?>
-                    <span class="ftp-footer-logo-text">
-                        120
-                        <?php echo ftp_get_logo_straw_svg('goldGradientFooter'); ?>
-                    </span>
+                    <div class="ftp-footer-logo-text ftp-logo-animated">
+                        <?php echo ftp_get_animated_footer_logo_svg(); ?>
+                    </div>
                     <?php endif; ?>
                     <p class="ftp-footer-tagline">Health &amp; Wellness Through Fresh Fruits</p>
                 </div>
