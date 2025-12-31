@@ -756,8 +756,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 20px;
-    font-size: 0.85rem;
+    padding: 12px 25px;
+    font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
     text-transform: uppercase;
@@ -853,8 +853,8 @@
 }
 
 .ftp-btn-large {
-    padding: 12px 28px;
-    font-size: 0.95rem;
+    padding: 14px 30px;
+    font-size: 1rem;
 }
 
 /* ===================== MENU SECTION ===================== */
