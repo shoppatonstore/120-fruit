@@ -125,7 +125,7 @@ $menu_item_images = isset($settings['menu_item_images']) ? $settings['menu_item_
 </div>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Order modal functionality
     var modal = document.getElementById('ftp-order-modal');
     var orderButtons = document.querySelectorAll('.ftp-order-btn');
@@ -138,25 +138,30 @@ $menu_item_images = isset($settings['menu_item_images']) ? $settings['menu_item_
     var currentProduct = {};
     
     // Open modal when order button is clicked
-    orderButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            currentProduct = {
-                name: this.getAttribute('data-product-name'),
-                price: this.getAttribute('data-product-price'),
-                contents: this.getAttribute('data-product-contents'),
-                phone: this.getAttribute('data-phone')
-            };
-            
-            if (productDisplay) {
-                productDisplay.innerHTML = '<strong>' + currentProduct.name + '</strong> - ' + currentProduct.price;
-            }
-            
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
+    if (orderButtons && orderButtons.length > 0) {
+        orderButtons.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                currentProduct = {
+                    name: this.getAttribute('data-product-name'),
+                    price: this.getAttribute('data-product-price'),
+                    contents: this.getAttribute('data-product-contents'),
+                    phone: this.getAttribute('data-phone')
+                };
+                
+                if (productDisplay) {
+                    productDisplay.innerHTML = '<strong>' + currentProduct.name + '</strong> - ' + currentProduct.price;
+                }
+                
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
         });
-    });
+    }
     
     // Close modal
     function closeModal() {
@@ -180,7 +185,7 @@ $menu_item_images = isset($settings['menu_item_images']) ? $settings['menu_item_
             '⏱️ I understand preparation takes 5-10 minutes.\n\n' +
             'Please confirm my order. Thank you!';
         
-        var phone = currentProduct.phone.replace(/[^0-9]/g, '');
+        var phone = currentProduct.phone ? currentProduct.phone.replace(/[^0-9]/g, '') : '';
         if (phone.startsWith('0')) {
             phone = '234' + phone.substring(1);
         }
@@ -197,5 +202,5 @@ $menu_item_images = isset($settings['menu_item_images']) ? $settings['menu_item_
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeModal();
     });
-})();
+});
 </script>
