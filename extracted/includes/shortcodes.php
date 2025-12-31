@@ -48,6 +48,7 @@ function ftp_header_shortcode() {
     $whatsapp_order_url = ftp_whatsapp_url(ftp_get_order_phone(), "Hello 120 Fruit Therapy! I would like to place an order. Please assist me with your menu options.");
     $menu_page_url = ftp_get_menu_page_url();
     $special_plans_url = ftp_get_special_plans_page_url();
+    $special_plan_menu_url = ftp_get_special_plan_menu_page_url();
     $home_url = home_url('/');
     $settings = get_option('ftp_settings', array());
     $logo_url = isset($settings['logo_url']) ? $settings['logo_url'] : '';
@@ -74,6 +75,7 @@ function ftp_header_shortcode() {
                         <a href="#ftp-menu" class="ftp-nav-link ftp-dropdown-trigger">Menu <span class="ftp-dropdown-arrow">▼</span></a>
                         <ul class="ftp-dropdown-menu">
                             <li><a href="<?php echo esc_url($menu_page_url); ?>">Therapeutic Menu</a></li>
+                            <li><a href="<?php echo esc_url($special_plan_menu_url); ?>">Special Plan Menu</a></li>
                             <li><a href="<?php echo esc_url($special_plans_url); ?>">Special Plans</a></li>
                         </ul>
                     </li>
