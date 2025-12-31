@@ -755,19 +755,25 @@
 .ftp-btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 15px 30px;
-    font-size: 1rem;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
     font-weight: 600;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 50px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    letter-spacing: 0.5px;
+    border-radius: 25px;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     border: none;
     position: relative;
     overflow: hidden;
+    animation: ftp-btn-color-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ftp-btn-color-pulse {
+    0%, 100% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.1) saturate(1.15); }
 }
 
 .ftp-btn::before {
@@ -777,8 +783,8 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+    transition: left 0.3s ease;
 }
 
 .ftp-btn:hover::before {
@@ -786,62 +792,69 @@
 }
 
 .ftp-btn-icon {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
 }
 
 .ftp-btn:hover .ftp-btn-icon {
-    transform: scale(1.2);
+    transform: scale(1.15);
 }
 
 .ftp-btn-primary {
     background: linear-gradient(135deg, var(--ftp-primary-red), #cc0000);
     color: var(--ftp-white);
-    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 3px 12px rgba(255, 0, 0, 0.35);
 }
 
 .ftp-btn-primary:hover {
     background: linear-gradient(135deg, var(--ftp-gold), var(--ftp-gold-dark));
     color: var(--ftp-black);
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-        0 15px 35px rgba(255, 215, 0, 0.5),
-        0 0 25px rgba(255, 215, 0, 0.4);
+        0 8px 20px rgba(255, 215, 0, 0.4),
+        0 0 15px rgba(255, 215, 0, 0.3);
+    animation: ftp-btn-swift-glow 0.4s ease-out;
+}
+
+@keyframes ftp-btn-swift-glow {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+    100% { filter: brightness(1.1); }
 }
 
 .ftp-btn-secondary {
     background: transparent;
     color: var(--ftp-white);
-    border: 2px solid var(--ftp-white);
+    border: 1.5px solid var(--ftp-white);
 }
 
 .ftp-btn-secondary:hover {
     background: var(--ftp-gold);
     color: var(--ftp-black);
     border-color: var(--ftp-gold);
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25);
 }
 
 .ftp-btn-outline {
     background: transparent;
     color: var(--ftp-primary-red);
-    border: 2px solid var(--ftp-primary-red);
+    border: 1.5px solid var(--ftp-primary-red);
 }
 
 .ftp-btn-outline:hover {
     background: linear-gradient(135deg, var(--ftp-primary-red), #cc0000);
     color: var(--ftp-white);
     border-color: var(--ftp-primary-red);
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-        0 15px 35px rgba(255, 0, 0, 0.5),
-        0 0 20px rgba(255, 0, 0, 0.3);
+        0 8px 20px rgba(255, 0, 0, 0.4),
+        0 0 12px rgba(255, 0, 0, 0.25);
 }
 
 .ftp-btn-large {
-    padding: 18px 40px;
-    font-size: 1.1rem;
+    padding: 12px 28px;
+    font-size: 0.95rem;
 }
 
 /* ===================== MENU SECTION ===================== */
