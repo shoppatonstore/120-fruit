@@ -157,7 +157,7 @@ function ftp_menu_section_shortcode() {
                 <?php foreach ($menu_items as $key => $category) : 
                     $image_url = isset($category_images[$key]) && !empty($category_images[$key]) ? $category_images[$key] : '';
                 ?>
-                <div class="ftp-menu-card ftp-fade-in-up" data-category="<?php echo esc_attr($key); ?>">
+                <a href="<?php echo esc_url($menu_page_url . '#menu-' . $key); ?>" class="ftp-menu-card ftp-fade-in-up ftp-clickable-link" data-category="<?php echo esc_attr($key); ?>">
                     <div class="ftp-menu-card-image" <?php if ($image_url) : ?>style="background-image: url('<?php echo esc_url($image_url); ?>');"<?php endif; ?>>
                         <?php if (!$image_url) : ?>
                         <div class="ftp-menu-card-placeholder">
@@ -170,7 +170,7 @@ function ftp_menu_section_shortcode() {
                         <h3 class="ftp-menu-card-title"><?php echo esc_html($category['title']); ?></h3>
                         <p class="ftp-menu-card-desc"><?php echo esc_html($category['description']); ?></p>
                     </div>
-                </div>
+                </a>
                 <?php endforeach; ?>
             </div>
             <div class="ftp-section-cta ftp-fade-in-up">
@@ -214,7 +214,7 @@ function ftp_special_plans_section_shortcode() {
                         $plan_key = sanitize_title($plan['name']);
                         $image_url = isset($plan_images[$plan_key]) && !empty($plan_images[$plan_key]) ? $plan_images[$plan_key] : '';
                     ?>
-                    <div class="ftp-plan-card ftp-fade-in-up">
+                    <a href="<?php echo esc_url($special_plans_url); ?>" class="ftp-plan-card ftp-fade-in-up ftp-clickable-link">
                         <div class="ftp-plan-card-image" <?php if ($image_url) : ?>style="background-image: url('<?php echo esc_url($image_url); ?>');"<?php endif; ?>>
                             <?php if (!$image_url) : ?>
                             <div class="ftp-plan-card-placeholder">
@@ -224,7 +224,7 @@ function ftp_special_plans_section_shortcode() {
                         </div>
                         <h3 class="ftp-plan-title"><?php echo esc_html($plan['name']); ?></h3>
                         <p class="ftp-plan-desc"><?php echo esc_html($plan['description']); ?></p>
-                    </div>
+                    </a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -260,7 +260,7 @@ function ftp_special_plan_menu_section_shortcode() {
                         $plan_key = sanitize_title($category['title']);
                         $image_url = isset($plan_images[$plan_key]) && !empty($plan_images[$plan_key]) ? $plan_images[$plan_key] : '';
                     ?>
-                    <div class="ftp-plan-card ftp-fade-in-up">
+                    <a href="<?php echo esc_url($special_plan_menu_url . '#plan-menu-' . $key); ?>" class="ftp-plan-card ftp-fade-in-up ftp-clickable-link">
                         <div class="ftp-plan-card-image" <?php if ($image_url) : ?>style="background-image: url('<?php echo esc_url($image_url); ?>');"<?php endif; ?>>
                             <?php if (!$image_url) : ?>
                             <div class="ftp-plan-card-placeholder">
@@ -272,7 +272,7 @@ function ftp_special_plan_menu_section_shortcode() {
                         </div>
                         <h3 class="ftp-plan-title"><?php echo esc_html($category['title']); ?></h3>
                         <p class="ftp-plan-desc"><?php echo esc_html($category['description']); ?></p>
-                    </div>
+                    </a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -608,7 +608,7 @@ function ftp_footer_shortcode() {
     
     <!-- Floating Support Button - Links to Menu Page -->
     <div class="ftp-floating-support" id="ftp-floating-support">
-        <div class="ftp-support-popup">Place Order</div>
+        <a href="<?php echo esc_url(ftp_get_menu_page_url()); ?>" class="ftp-support-popup-link">Place Order</a>
         <a href="<?php echo esc_url(ftp_get_menu_page_url()); ?>" class="ftp-support-btn">
             <span class="ftp-support-icon"><?php echo ftp_get_inline_chat_icon(); ?></span>
         </a>

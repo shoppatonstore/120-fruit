@@ -49,9 +49,13 @@ $special_plan_item_images = isset($settings['special_plan_menu_item_images']) ? 
                         $item_key = sanitize_title($key . '-' . $item['name']);
                         $image_url = isset($special_plan_item_images[$item_key]) && !empty($special_plan_item_images[$item_key]) ? $special_plan_item_images[$item_key] : '';
                     ?>
-                    <div class="ftp-menu-item-card ftp-fade-in-up">
+                    <div class="ftp-menu-item-card ftp-fade-in-up ftp-clickable-card"
+                        data-product-name="<?php echo esc_attr($item['name']); ?>"
+                        data-product-price="<?php echo esc_attr($item['price']); ?>"
+                        data-product-contents="<?php echo esc_attr($item['description']); ?>"
+                        data-phone="<?php echo esc_attr(ftp_get_support_phone()); ?>">
                         <!-- Image Placeholder -->
-                        <div class="ftp-menu-item-image" data-item-key="<?php echo esc_attr($item_key); ?>">
+                        <div class="ftp-menu-item-image ftp-clickable-area" data-item-key="<?php echo esc_attr($item_key); ?>">
                             <?php if (!empty($image_url)) : ?>
                             <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($item['name']); ?>" loading="lazy">
                             <?php else : ?>
@@ -62,11 +66,11 @@ $special_plan_item_images = isset($settings['special_plan_menu_item_images']) ? 
                             <?php endif; ?>
                         </div>
                         <div class="ftp-menu-item-content">
-                            <div class="ftp-menu-item-header">
+                            <div class="ftp-menu-item-header ftp-clickable-area">
                                 <h3 class="ftp-menu-item-name"><?php echo esc_html($item['name']); ?></h3>
                                 <span class="ftp-menu-item-price"><?php echo esc_html($item['price']); ?></span>
                             </div>
-                            <p class="ftp-menu-item-desc"><?php echo esc_html($item['description']); ?></p>
+                            <p class="ftp-menu-item-desc ftp-clickable-area"><?php echo esc_html($item['description']); ?></p>
                             <div class="ftp-menu-item-order">
                                 <button type="button" class="ftp-btn ftp-btn-primary ftp-btn-small ftp-order-btn" 
                                     data-product-name="<?php echo esc_attr($item['name']); ?>"
@@ -129,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Order modal functionality
     var modal = document.getElementById('ftp-order-modal');
     var orderButtons = document.querySelectorAll('.ftp-order-btn');
+    var clickableCards = document.querySelectorAll('.ftp-clickable-card');
     var closeBtn = modal ? modal.querySelector('.ftp-order-modal-close') : null;
     var overlay = modal ? modal.querySelector('.ftp-order-modal-overlay') : null;
     var deliveryBtn = modal ? modal.querySelector('.ftp-order-delivery') : null;
@@ -137,6 +142,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     var currentProduct = {};
     
+    // Function to open modal with product data
+    function openOrderModal(productData) {
+        currentProduct = productData;
+        
+        if (productDisplay) {
+            productDisplay.innerHTML = '<strong>' + currentProduct.name + '</strong> - ' + currentProduct.price;
+        }
+        
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
     // Open modal when order button is clicked
     if (orderButtons && orderButtons.length > 0) {
         orderButtons.forEach(function(btn) {
@@ -144,21 +163,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                currentProduct = {
+                openOrderModal({
                     name: this.getAttribute('data-product-name'),
                     price: this.getAttribute('data-product-price'),
                     contents: this.getAttribute('data-product-contents'),
                     phone: this.getAttribute('data-phone')
-                };
-                
-                if (productDisplay) {
-                    productDisplay.innerHTML = '<strong>' + currentProduct.name + '</strong> - ' + currentProduct.price;
+                });
+            });
+        });
+    }
+    
+    // Make entire card clickable (images, prices, names, descriptions)
+    if (clickableCards && clickableCards.length > 0) {
+        clickableCards.forEach(function(card) {
+            // Add click event to the entire card
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking the button itself (already has its own handler)
+                if (e.target.closest('.ftp-order-btn')) {
+                    return;
                 }
                 
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
+                e.preventDefault();
+                
+                openOrderModal({
+                    name: this.getAttribute('data-product-name'),
+                    price: this.getAttribute('data-product-price'),
+                    contents: this.getAttribute('data-product-contents'),
+                    phone: this.getAttribute('data-phone')
+                });
             });
         });
     }

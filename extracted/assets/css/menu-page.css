@@ -85,10 +85,20 @@
     transition: var(--ftp-transition);
 }
 
+/* Make entire card clickable */
+.ftp-menu-item-card.ftp-clickable-card {
+    cursor: pointer;
+}
+
 .ftp-menu-item-card:hover {
     transform: translateY(-5px);
     border-color: var(--ftp-primary-red);
     box-shadow: 0 15px 30px rgba(255, 0, 0, 0.15);
+}
+
+/* Clickable areas within cards */
+.ftp-clickable-area {
+    cursor: pointer;
 }
 
 .ftp-menu-item-image {

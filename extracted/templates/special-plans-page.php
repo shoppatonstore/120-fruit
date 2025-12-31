@@ -33,17 +33,16 @@ $plans = ftp_get_special_plans();
                 </div>
                 
                 <div class="ftp-plan-options">
-                    <?php foreach ($plan['plans'] as $option) : ?>
-                    <div class="ftp-plan-option">
+                    <?php foreach ($plan['plans'] as $option) : 
+                        $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in your " . $plan['name'] . " wellness plan (" . $option['duration'] . " - " . $option['price'] . "). Please provide more details.");
+                    ?>
+                    <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-plan-option ftp-clickable-link" target="_blank" rel="noopener">
                         <div class="ftp-plan-option-duration"><?php echo esc_html($option['duration']); ?></div>
                         <div class="ftp-plan-option-price"><?php echo esc_html($option['price']); ?></div>
-                        <?php 
-                        $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in your " . $plan['name'] . " wellness plan (" . $option['duration'] . " - " . $option['price'] . "). Please provide more details.");
-                        ?>
-                        <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-primary" target="_blank" rel="noopener">
+                        <span class="ftp-btn ftp-btn-primary">
                             Get Started
-                        </a>
-                    </div>
+                        </span>
+                    </a>
                     <?php endforeach; ?>
                 </div>
                 

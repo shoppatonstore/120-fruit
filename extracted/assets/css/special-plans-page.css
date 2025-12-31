@@ -96,6 +96,22 @@
     padding: 25px;
     text-align: center;
     transition: var(--ftp-transition);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Make plan option links styled properly */
+a.ftp-plan-option.ftp-clickable-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.ftp-plan-option.ftp-clickable-link:hover {
+    text-decoration: none;
 }
 
 .ftp-plan-option:hover {

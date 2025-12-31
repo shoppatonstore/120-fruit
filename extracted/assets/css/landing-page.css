@@ -868,6 +868,33 @@
     gap: 30px;
 }
 
+/* Clickable Link Cards */
+.ftp-clickable-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+a.ftp-menu-card.ftp-clickable-link,
+a.ftp-plan-card.ftp-clickable-link,
+a.ftp-plan-option.ftp-clickable-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.ftp-menu-card.ftp-clickable-link:hover,
+a.ftp-plan-card.ftp-clickable-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.ftp-plan-option.ftp-clickable-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
 /* Menu Card with Image Placeholder */
 .ftp-menu-card {
     background: var(--ftp-card-bg);
@@ -2072,7 +2099,8 @@
     z-index: 999;
 }
 
-.ftp-support-popup {
+.ftp-support-popup,
+.ftp-support-popup-link {
     position: absolute;
     bottom: 65px;
     right: 0;
@@ -2090,6 +2118,15 @@
     transform: translateY(0);
     animation: ftp-popup-bounce-sparkle 2s ease-in-out infinite;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+}
+
+.ftp-support-popup-link:hover {
+    color: var(--ftp-white);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 @keyframes ftp-popup-bounce-sparkle {
@@ -2105,7 +2142,8 @@
     }
 }
 
-.ftp-support-popup::after {
+.ftp-support-popup::after,
+.ftp-support-popup-link::after {
     content: '';
     position: absolute;
     bottom: -6px;
