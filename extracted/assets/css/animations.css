@@ -1,19 +1,38 @@
 /**
  * 120 Fruit Therapy - Animation Styles
+ * Performance optimized with GPU acceleration
  */
+
+/* ===================== GPU OPTIMIZATION ===================== */
+
+/* Enable GPU acceleration for animated elements */
+.ftp-fade-in-up,
+.ftp-slide-in-left,
+.ftp-slide-in-right,
+.ftp-scale-in,
+.ftp-float-slow,
+.ftp-float-medium,
+.ftp-float-fast,
+.ftp-tilt-card,
+.ftp-logo-animated,
+.ftp-btn {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
 
 /* ===================== FADE IN ANIMATIONS ===================== */
 
 /* Base animation state */
 .ftp-fade-in-up {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .ftp-fade-in-up.animated {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* Animation delays */
@@ -26,7 +45,7 @@
 /* Stagger children animations */
 .ftp-stagger-children > * {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 20px, 0);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
@@ -43,44 +62,44 @@
 
 .ftp-stagger-children.animated > * {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* ===================== SLIDE ANIMATIONS ===================== */
 
 .ftp-slide-in-left {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translate3d(-50px, 0, 0);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .ftp-slide-in-left.animated {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
 }
 
 .ftp-slide-in-right {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translate3d(50px, 0, 0);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .ftp-slide-in-right.animated {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* ===================== SCALE ANIMATIONS ===================== */
 
 .ftp-scale-in {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale3d(0.8, 0.8, 1);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .ftp-scale-in.animated {
     opacity: 1;
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
 }
 
 /* ===================== GLOW ANIMATIONS ===================== */
@@ -106,16 +125,16 @@
 
 @keyframes ftp-float-slow {
     0%, 100% {
-        transform: translateY(0) rotate(0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
     }
     25% {
-        transform: translateY(-15px) rotate(3deg);
+        transform: translate3d(0, -15px, 0) rotate(3deg);
     }
     50% {
-        transform: translateY(0) rotate(0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
     }
     75% {
-        transform: translateY(-10px) rotate(-3deg);
+        transform: translate3d(0, -10px, 0) rotate(-3deg);
     }
 }
 
@@ -125,10 +144,10 @@
 
 @keyframes ftp-float-medium {
     0%, 100% {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
     50% {
-        transform: translateY(-20px);
+        transform: translate3d(0, -20px, 0);
     }
 }
 
@@ -138,10 +157,10 @@
 
 @keyframes ftp-float-fast {
     0%, 100% {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
     50% {
-        transform: translateY(-15px);
+        transform: translate3d(0, -15px, 0);
     }
 }
 
@@ -181,6 +200,7 @@
         transparent
     );
     animation: ftp-shimmer 2s infinite;
+    will-change: left;
 }
 
 @keyframes ftp-shimmer {
@@ -200,32 +220,34 @@
 
 .ftp-counter-animate.counting {
     color: var(--ftp-primary-red);
-    transform: scale(1.1);
+    transform: scale3d(1.1, 1.1, 1);
 }
 
 /* ===================== HERO VIDEO SCROLL EFFECT ===================== */
 
 .ftp-hero-video-container {
     transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: opacity, transform;
 }
 
 .ftp-hero-video-container.fading {
     opacity: 0.3;
-    transform: scale(1.05);
+    transform: scale3d(1.05, 1.05, 1);
 }
 
 /* ===================== HEADER SCROLL ANIMATION ===================== */
 
 .ftp-header {
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .ftp-header.hidden {
-    transform: translateY(-100%);
+    transform: translate3d(0, -100%, 0);
 }
 
 .ftp-header.visible {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* ===================== BUTTON HOVER ANIMATIONS ===================== */
@@ -273,12 +295,12 @@
 
 .ftp-text-reveal span {
     display: inline-block;
-    transform: translateY(100%);
+    transform: translate3d(0, 100%, 0);
     transition: transform 0.5s ease;
 }
 
 .ftp-text-reveal.animated span {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* ===================== LOADING ANIMATION ===================== */
@@ -296,6 +318,7 @@
     background: var(--ftp-primary-red);
     border-radius: 50%;
     animation: ftp-loading-bounce 1.4s ease-in-out infinite both;
+    will-change: transform;
 }
 
 .ftp-loading-dot:nth-child(1) { animation-delay: -0.32s; }
@@ -304,10 +327,10 @@
 
 @keyframes ftp-loading-bounce {
     0%, 80%, 100% {
-        transform: scale(0);
+        transform: scale3d(0, 0, 1);
     }
     40% {
-        transform: scale(1);
+        transform: scale3d(1, 1, 1);
     }
 }
 
@@ -325,6 +348,7 @@
     transform: scale(0);
     animation: ftp-ripple 0.6s linear;
     pointer-events: none;
+    will-change: transform, opacity;
 }
 
 @keyframes ftp-ripple {
@@ -352,4 +376,11 @@
         opacity: 1;
         transform: none;
     }
+}
+
+/* ===================== CONTENT VISIBILITY FOR PERFORMANCE ===================== */
+
+.ftp-section:not(:first-child) {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
 }
