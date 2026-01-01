@@ -141,22 +141,71 @@
      */
     function initSmoothScroll() {
         document.addEventListener('click', function(e) {
-            var anchor = e.target.closest('a[href^="#"]');
+            var anchor = e.target.closest('a[href*="#"]');
             if (!anchor) return;
             
             var href = anchor.getAttribute('href');
-            if (href === '#') return;
+            if (!href || href === '#') return;
             
-            var target = document.querySelector(href);
+            // Extract the hash from the href (handles both "#section" and "https://site.com/#section")
+            var hashIndex = href.indexOf('#');
+            if (hashIndex === -1) return;
+            
+            var hash = href.substring(hashIndex);
+            if (!hash || hash === '#') return;
+            
+            // Check if this is a link to the current page (same origin or relative)
+            var isCurrentPage = false;
+            var currentUrl = window.location.origin + window.location.pathname;
+            
+            if (href.startsWith('#')) {
+                // Pure hash link like "#section"
+                isCurrentPage = true;
+            } else {
+                // Full URL with hash - check if it's the current page
+                var linkUrl = href.substring(0, hashIndex);
+                // Remove trailing slash for comparison
+                linkUrl = linkUrl.replace(/\/$/, '');
+                var compareUrl = currentUrl.replace(/\/$/, '');
+                var homeUrl = window.location.origin;
+                
+                // Check if linking to home page and we're on home page
+                if (linkUrl === homeUrl || linkUrl === homeUrl + '/' || 
+                    linkUrl === compareUrl || linkUrl + '/' === currentUrl) {
+                    isCurrentPage = true;
+                }
+            }
+            
+            // Only handle smooth scroll if we're on the same page
+            if (!isCurrentPage) return;
+            
+            var target = document.querySelector(hash);
             if (!target) return;
             
             e.preventDefault();
+            
+            // Update URL hash without scrolling
+            if (history.pushState) {
+                history.pushState(null, null, hash);
+            }
             
             var headerHeight = header ? header.offsetHeight : 0;
             var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
             
             smoothScrollTo(targetPosition, 600);
         });
+        
+        // Handle hash in URL on page load
+        if (window.location.hash) {
+            setTimeout(function() {
+                var target = document.querySelector(window.location.hash);
+                if (target) {
+                    var headerHeight = header ? header.offsetHeight : 0;
+                    var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    smoothScrollTo(targetPosition, 600);
+                }
+            }, 100);
+        }
     }
 
     /**
