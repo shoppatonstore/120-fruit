@@ -68,6 +68,11 @@ function ftp_header_shortcode() {
             <button class="ftp-mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="ftp-hamburger"></span>
             </button>
+            <!-- Theme Toggle Switch -->
+            <button class="ftp-theme-toggle" id="ftp-theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+                <span class="ftp-theme-icon ftp-theme-icon-dark">🌙</span>
+                <span class="ftp-theme-icon ftp-theme-icon-light">☀️</span>
+            </button>
             <nav class="ftp-nav">
                 <ul class="ftp-nav-list">
                     <li><a href="<?php echo esc_url($home_url); ?>" class="ftp-nav-link">Home</a></li>
@@ -317,21 +322,20 @@ function ftp_gift_packages_shortcode() {
                 <p class="ftp-section-subtitle">Gift someone you care about, you don't need a special day to make someone feel special</p>
             </div>
             <div class="ftp-packages-grid">
-                <?php foreach ($packages as $package) : ?>
-                <div class="ftp-package-card ftp-fade-in-up">
+                <?php foreach ($packages as $package) : 
+                    $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I want to make an enquiry about your " . $package['name'] . " package.");
+                ?>
+                <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-package-card ftp-fade-in-up ftp-clickable-link" target="_blank" rel="noopener">
                     <h3 class="ftp-package-title"><?php echo esc_html($package['name']); ?></h3>
                     <ul class="ftp-package-features">
                         <?php foreach ($package['features'] as $feature) : ?>
                         <li><?php echo esc_html($feature); ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <?php 
-                    $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I want to make an enquiry about your " . $package['name'] . " package.");
-                    ?>
-                    <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-primary" target="_blank" rel="noopener">
+                    <span class="ftp-btn ftp-btn-primary">
                         Gift (<?php echo esc_html($package['price']); ?>)
-                    </a>
-                </div>
+                    </span>
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -354,8 +358,10 @@ function ftp_wellness_events_shortcode() {
                 <p class="ftp-section-subtitle">Bring healthy, delicious fruit-based catering to your corporate events, wellness retreats, and special occasions</p>
             </div>
             <div class="ftp-events-grid">
-                <?php foreach ($events as $key => $event) : ?>
-                <div class="ftp-event-card ftp-fade-in-up">
+                <?php foreach ($events as $key => $event) : 
+                    $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I would like to enquire about your " . $event['title'] . " services for my upcoming event.");
+                ?>
+                <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-event-card ftp-fade-in-up ftp-clickable-link" target="_blank" rel="noopener">
                     <div class="ftp-event-icon"><?php echo ftp_get_wellness_event_icon($key); ?></div>
                     <h3 class="ftp-event-title"><?php echo esc_html($event['title']); ?></h3>
                     <p class="ftp-event-desc"><?php echo esc_html($event['description']); ?></p>
@@ -364,11 +370,8 @@ function ftp_wellness_events_shortcode() {
                         <li><?php echo esc_html($service); ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <?php 
-                    $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I would like to enquire about your " . $event['title'] . " services for my upcoming event.");
-                    ?>
-                    <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-outline" target="_blank" rel="noopener">Enquire Now</a>
-                </div>
+                    <span class="ftp-btn ftp-btn-outline">Enquire Now</span>
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -390,27 +393,27 @@ function ftp_special_offers_shortcode() {
                 <p class="ftp-section-subtitle">Take advantage of our exclusive promotions and seasonal deals</p>
             </div>
             <div class="ftp-offers-grid">
-                <div class="ftp-offer-card ftp-fade-in-up">
+                <?php $whatsapp_url_1 = ftp_whatsapp_url(ftp_get_order_phone(), "Hello 120! I'm a new customer and would like to claim my 10% first order discount."); ?>
+                <a href="<?php echo esc_url($whatsapp_url_1); ?>" class="ftp-offer-card ftp-fade-in-up ftp-clickable-link" target="_blank" rel="noopener">
                     <div class="ftp-offer-badge">NEW</div>
                     <h3 class="ftp-offer-title">First Order Discount</h3>
                     <p class="ftp-offer-desc">Get 10% off your first order when you order via WhatsApp!</p>
-                    <?php $whatsapp_url = ftp_whatsapp_url(ftp_get_order_phone(), "Hello 120! I'm a new customer and would like to claim my 10% first order discount."); ?>
-                    <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-primary" target="_blank" rel="noopener">Claim Offer</a>
-                </div>
-                <div class="ftp-offer-card ftp-fade-in-up">
+                    <span class="ftp-btn ftp-btn-primary">Claim Offer</span>
+                </a>
+                <?php $whatsapp_url_2 = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in the 30-day wellness plan bundle with free smoothie."); ?>
+                <a href="<?php echo esc_url($whatsapp_url_2); ?>" class="ftp-offer-card ftp-fade-in-up ftp-clickable-link" target="_blank" rel="noopener">
                     <div class="ftp-offer-badge">POPULAR</div>
                     <h3 class="ftp-offer-title">Wellness Plan Bundle</h3>
                     <p class="ftp-offer-desc">Subscribe to any 30-day plan and get a free smoothie of your choice!</p>
-                    <?php $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in the 30-day wellness plan bundle with free smoothie."); ?>
-                    <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-primary" target="_blank" rel="noopener">Learn More</a>
-                </div>
-                <div class="ftp-offer-card ftp-fade-in-up">
+                    <span class="ftp-btn ftp-btn-primary">Learn More</span>
+                </a>
+                <?php $whatsapp_url_3 = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in the corporate package deal for my organization."); ?>
+                <a href="<?php echo esc_url($whatsapp_url_3); ?>" class="ftp-offer-card ftp-fade-in-up ftp-clickable-link" target="_blank" rel="noopener">
                     <div class="ftp-offer-badge">LIMITED</div>
                     <h3 class="ftp-offer-title">Corporate Package Deal</h3>
                     <p class="ftp-offer-desc">Book corporate wellness catering for 20+ people and receive 15% discount!</p>
-                    <?php $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I'm interested in the corporate package deal for my organization."); ?>
-                    <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-btn ftp-btn-primary" target="_blank" rel="noopener">Get Quote</a>
-                </div>
+                    <span class="ftp-btn ftp-btn-primary">Get Quote</span>
+                </a>
             </div>
         </div>
     </section>

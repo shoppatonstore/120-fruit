@@ -895,6 +895,22 @@ a.ftp-plan-option.ftp-clickable-link {
     cursor: pointer;
 }
 
+/* Clickable cards (package, event, offer) */
+a.ftp-package-card.ftp-clickable-link,
+a.ftp-event-card.ftp-clickable-link,
+a.ftp-offer-card.ftp-clickable-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a.ftp-package-card.ftp-clickable-link:hover,
+a.ftp-event-card.ftp-clickable-link:hover,
+a.ftp-offer-card.ftp-clickable-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Menu Card with Image Placeholder */
 .ftp-menu-card {
     background: var(--ftp-card-bg);
@@ -2477,5 +2493,243 @@ html {
     /* Disable SVG animations */
     svg animate {
         animation: none !important;
+    }
+}
+
+/* ===================== THEME TOGGLE ===================== */
+.ftp-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--ftp-primary-red), var(--ftp-gold));
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-left: 10px;
+    box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+}
+
+.ftp-theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+}
+
+.ftp-theme-icon {
+    position: absolute;
+    font-size: 1.2rem;
+    transition: all 0.4s ease;
+}
+
+/* Dark mode (default) - show moon */
+.ftp-theme-icon-dark {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.ftp-theme-icon-light {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+}
+
+/* Light mode - show sun */
+.ftp-wrapper.ftp-light-mode .ftp-theme-icon-dark {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-theme-icon-light {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* ===================== LIGHT MODE STYLES ===================== */
+.ftp-wrapper.ftp-light-mode {
+    --ftp-white: #1a1a1a;
+    --ftp-black: #FFFFFF;
+    --ftp-dark-burgundy: #fff5f5;
+    --ftp-dark-bg: #fafafa;
+    --ftp-card-bg: rgba(255, 255, 255, 0.95);
+    --ftp-card-border: rgba(255, 0, 0, 0.15);
+    --ftp-text-muted: rgba(50, 50, 50, 0.8);
+    background: #FFFFFF;
+    color: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-header {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-header.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-nav-link {
+    color: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-nav-link:hover {
+    color: var(--ftp-primary-red);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-hamburger,
+.ftp-wrapper.ftp-light-mode .ftp-hamburger::before,
+.ftp-wrapper.ftp-light-mode .ftp-hamburger::after {
+    background: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-section {
+    background: linear-gradient(135deg, #FFFFFF 0%, #fff5f5 100%);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-menu-section,
+.ftp-wrapper.ftp-light-mode .ftp-special-plans-section,
+.ftp-wrapper.ftp-light-mode .ftp-special-plan-menu-section {
+    background: linear-gradient(135deg, #FFFFFF 0%, #fff8f8 100%);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-menu-card,
+.ftp-wrapper.ftp-light-mode .ftp-plan-card,
+.ftp-wrapper.ftp-light-mode .ftp-package-card,
+.ftp-wrapper.ftp-light-mode .ftp-event-card,
+.ftp-wrapper.ftp-light-mode .ftp-offer-card,
+.ftp-wrapper.ftp-light-mode .ftp-contact-card {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-section-title {
+    background: linear-gradient(135deg, #1a1a1a 0%, var(--ftp-primary-red) 50%, #1a1a1a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-section-subtitle,
+.ftp-wrapper.ftp-light-mode .ftp-text-muted {
+    color: #555;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-menu-card-title,
+.ftp-wrapper.ftp-light-mode .ftp-plan-title,
+.ftp-wrapper.ftp-light-mode .ftp-package-title,
+.ftp-wrapper.ftp-light-mode .ftp-event-title,
+.ftp-wrapper.ftp-light-mode .ftp-offer-title,
+.ftp-wrapper.ftp-light-mode .ftp-contact-title {
+    color: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-footer {
+    background: linear-gradient(180deg, #fff5f5 0%, #FFFFFF 100%);
+    border-top-color: var(--ftp-primary-red);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-footer-links h4,
+.ftp-wrapper.ftp-light-mode .ftp-footer-contact h4,
+.ftp-wrapper.ftp-light-mode .ftp-footer-social h4 {
+    color: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-footer-contact p,
+.ftp-wrapper.ftp-light-mode .ftp-footer-tagline {
+    color: #555;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-footer-bottom p {
+    color: #777;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-dropdown-menu {
+    background: rgba(255, 255, 255, 0.98);
+    border-color: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-dropdown-menu a {
+    color: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-dropdown-menu a:hover {
+    background: rgba(255, 0, 0, 0.08);
+    color: var(--ftp-primary-red);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-hero-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 245, 245, 0.6) 50%,
+        rgba(255, 255, 255, 0.85) 100%
+    );
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-hero-title {
+    background: linear-gradient(135deg, #1a1a1a, var(--ftp-primary-red), #1a1a1a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-hero-text {
+    color: #333;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-gift-packages,
+.ftp-wrapper.ftp-light-mode .ftp-special-offers {
+    background: #fff8f8;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-wellness-events {
+    background: linear-gradient(135deg, #fff5f5 0%, #FFFFFF 100%);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-mission {
+    background: linear-gradient(180deg, #FFFFFF 0%, #fff5f5 100%);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-mission-text {
+    color: #444;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-stats {
+    background: #fff5f5;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-stat-label {
+    color: #555;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-contact {
+    background: linear-gradient(180deg, #fff5f5 0%, #FFFFFF 100%);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-map-overlay {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.95), transparent);
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-map-info h3 {
+    color: #1a1a1a;
+}
+
+.ftp-wrapper.ftp-light-mode .ftp-map-info p {
+    color: #555;
+}
+
+/* Mobile light mode nav */
+@media (max-width: 767px) {
+    .ftp-wrapper.ftp-light-mode .ftp-nav {
+        background: rgba(255, 255, 255, 0.98);
+        border-left-color: rgba(255, 0, 0, 0.2);
+    }
+    
+    .ftp-theme-toggle {
+        margin-right: 10px;
     }
 }

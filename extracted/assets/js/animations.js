@@ -211,4 +211,39 @@
         });
     });
 
+    /**
+     * Theme Toggle - Light/Dark Mode
+     */
+    function initThemeToggle() {
+        var themeToggle = document.getElementById('ftp-theme-toggle');
+        var wrapper = document.querySelector('.ftp-wrapper');
+        
+        if (!themeToggle || !wrapper) return;
+        
+        // Check for saved preference
+        var savedTheme = localStorage.getItem('ftp-theme');
+        if (savedTheme === 'light') {
+            wrapper.classList.add('ftp-light-mode');
+        }
+        
+        themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            wrapper.classList.toggle('ftp-light-mode');
+            
+            // Save preference
+            if (wrapper.classList.contains('ftp-light-mode')) {
+                localStorage.setItem('ftp-theme', 'light');
+            } else {
+                localStorage.setItem('ftp-theme', 'dark');
+            }
+        });
+    }
+    
+    // Initialize theme toggle when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initThemeToggle);
+    } else {
+        initThemeToggle();
+    }
+
 })();
