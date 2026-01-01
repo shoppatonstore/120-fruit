@@ -2096,6 +2096,16 @@ a.ftp-offer-card.ftp-clickable-link:hover {
     fill: var(--ftp-gold);
 }
 
+.ftp-social-link.ftp-facebook:hover {
+    background: #1877F2;
+    border: 2px solid #1877F2;
+    box-shadow: 0 0 30px rgba(24, 119, 242, 0.8);
+}
+
+.ftp-social-link.ftp-facebook:hover svg {
+    fill: var(--ftp-white);
+}
+
 .ftp-footer-bottom {
     text-align: center;
     padding-top: 30px;

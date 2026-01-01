@@ -83,12 +83,16 @@
             document.body.classList.toggle('ftp-menu-open');
         });
 
-        // Use event delegation for nav links
+        // Use event delegation for nav links - delay menu close to allow smooth scroll to work
         nav.addEventListener('click', function(e) {
-            if (e.target.classList.contains('ftp-nav-link')) {
-                nav.classList.remove('active');
-                toggle.classList.remove('active');
-                document.body.classList.remove('ftp-menu-open');
+            var link = e.target.closest('.ftp-nav-link');
+            if (link) {
+                // Delay closing menu to allow smooth scroll handler to process first
+                setTimeout(function() {
+                    nav.classList.remove('active');
+                    toggle.classList.remove('active');
+                    document.body.classList.remove('ftp-menu-open');
+                }, 50);
             }
         });
 
