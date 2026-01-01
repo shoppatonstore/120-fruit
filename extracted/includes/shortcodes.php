@@ -80,6 +80,7 @@ function ftp_header_shortcode() {
                         </ul>
                     </li>
                     <li><a href="<?php echo esc_url($home_url); ?>#ftp-gift-packages" class="ftp-nav-link">Gift Packages</a></li>
+                    <li><a href="<?php echo esc_url($home_url); ?>#ftp-events" class="ftp-nav-link">Corporate Wellness</a></li>
                     <li><a href="<?php echo esc_url($home_url); ?>#ftp-contact" class="ftp-nav-link">Contact</a></li>
                     <!-- Mobile Theme Toggle (inside hamburger menu) -->
                     <li class="ftp-mobile-theme-toggle-item">
