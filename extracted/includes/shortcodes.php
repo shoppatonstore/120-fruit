@@ -79,8 +79,8 @@ function ftp_header_shortcode() {
                             <li><a href="<?php echo esc_url($special_plans_url); ?>">Special Plans</a></li>
                         </ul>
                     </li>
-                    <li><a href="#ftp-gift-packages" class="ftp-nav-link">Gift Packages</a></li>
-                    <li><a href="#ftp-contact" class="ftp-nav-link">Contact</a></li>
+                    <li><a href="<?php echo esc_url($home_url); ?>#ftp-gift-packages" class="ftp-nav-link">Gift Packages</a></li>
+                    <li><a href="<?php echo esc_url($home_url); ?>#ftp-contact" class="ftp-nav-link">Contact</a></li>
                     <!-- Mobile Theme Toggle (inside hamburger menu) -->
                     <li class="ftp-mobile-theme-toggle-item">
                         <button class="ftp-theme-toggle ftp-theme-toggle-mobile" id="ftp-theme-toggle-mobile" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
