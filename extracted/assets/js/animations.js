@@ -212,13 +212,14 @@
     });
 
     /**
-     * Theme Toggle - Light/Dark Mode
+     * Theme Toggle - Light/Dark Mode (supports both desktop and mobile toggles)
      */
     function initThemeToggle() {
-        var themeToggle = document.getElementById('ftp-theme-toggle');
+        var themeToggleDesktop = document.getElementById('ftp-theme-toggle');
+        var themeToggleMobile = document.getElementById('ftp-theme-toggle-mobile');
         var wrapper = document.querySelector('.ftp-wrapper');
         
-        if (!themeToggle || !wrapper) return;
+        if (!wrapper) return;
         
         // Check for saved preference
         var savedTheme = localStorage.getItem('ftp-theme');
@@ -226,7 +227,7 @@
             wrapper.classList.add('ftp-light-mode');
         }
         
-        themeToggle.addEventListener('click', function(e) {
+        function toggleTheme(e) {
             e.preventDefault();
             wrapper.classList.toggle('ftp-light-mode');
             
@@ -236,7 +237,17 @@
             } else {
                 localStorage.setItem('ftp-theme', 'dark');
             }
-        });
+        }
+        
+        // Attach event listener to desktop toggle
+        if (themeToggleDesktop) {
+            themeToggleDesktop.addEventListener('click', toggleTheme);
+        }
+        
+        // Attach event listener to mobile toggle
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', toggleTheme);
+        }
     }
     
     // Initialize theme toggle when DOM is ready

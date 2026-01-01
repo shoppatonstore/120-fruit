@@ -2722,6 +2722,48 @@ html {
     color: #555;
 }
 
+/* Desktop/Mobile Theme Toggle visibility */
+.ftp-theme-toggle-desktop {
+    display: flex;
+    margin-left: 15px;
+}
+
+.ftp-mobile-theme-toggle-item {
+    display: none;
+}
+
+.ftp-theme-toggle-mobile {
+    width: 100%;
+    border-radius: 25px;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    gap: 10px;
+}
+
+.ftp-theme-toggle-label {
+    font-size: 0.9rem;
+    color: var(--ftp-white);
+    font-weight: 500;
+}
+
+/* Clickable contact cards */
+.ftp-contact-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ftp-contact-card-link:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3);
+}
+
+.ftp-contact-card-link .ftp-btn {
+    pointer-events: none;
+}
+
 /* Mobile light mode nav */
 @media (max-width: 767px) {
     .ftp-wrapper.ftp-light-mode .ftp-nav {
@@ -2729,7 +2771,20 @@ html {
         border-left-color: rgba(255, 0, 0, 0.2);
     }
     
-    .ftp-theme-toggle {
-        margin-right: 10px;
+    /* Hide desktop toggle on mobile */
+    .ftp-theme-toggle-desktop {
+        display: none !important;
+    }
+    
+    /* Show mobile toggle inside hamburger menu */
+    .ftp-mobile-theme-toggle-item {
+        display: block;
+        padding: 15px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 10px;
+    }
+    
+    .ftp-theme-toggle-mobile {
+        display: flex;
     }
 }

@@ -68,11 +68,6 @@ function ftp_header_shortcode() {
             <button class="ftp-mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="ftp-hamburger"></span>
             </button>
-            <!-- Theme Toggle Switch -->
-            <button class="ftp-theme-toggle" id="ftp-theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
-                <span class="ftp-theme-icon ftp-theme-icon-dark">🌙</span>
-                <span class="ftp-theme-icon ftp-theme-icon-light">☀️</span>
-            </button>
             <nav class="ftp-nav">
                 <ul class="ftp-nav-list">
                     <li><a href="<?php echo esc_url($home_url); ?>" class="ftp-nav-link">Home</a></li>
@@ -86,8 +81,21 @@ function ftp_header_shortcode() {
                     </li>
                     <li><a href="#ftp-gift-packages" class="ftp-nav-link">Gift Packages</a></li>
                     <li><a href="#ftp-contact" class="ftp-nav-link">Contact</a></li>
+                    <!-- Mobile Theme Toggle (inside hamburger menu) -->
+                    <li class="ftp-mobile-theme-toggle-item">
+                        <button class="ftp-theme-toggle ftp-theme-toggle-mobile" id="ftp-theme-toggle-mobile" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+                            <span class="ftp-theme-icon ftp-theme-icon-dark">🌙</span>
+                            <span class="ftp-theme-icon ftp-theme-icon-light">☀️</span>
+                            <span class="ftp-theme-toggle-label">Dark/Light Mode</span>
+                        </button>
+                    </li>
                 </ul>
                 <a href="<?php echo esc_url($whatsapp_order_url); ?>" class="ftp-header-cta" target="_blank" rel="noopener">Order Now</a>
+                <!-- Desktop Theme Toggle (after Order Now button) -->
+                <button class="ftp-theme-toggle ftp-theme-toggle-desktop" id="ftp-theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+                    <span class="ftp-theme-icon ftp-theme-icon-dark">🌙</span>
+                    <span class="ftp-theme-icon ftp-theme-icon-light">☀️</span>
+                </button>
             </nav>
         </div>
     </header>
@@ -486,6 +494,9 @@ function ftp_stats_shortcode() {
  * Contact section shortcode
  */
 function ftp_contact_shortcode() {
+    $order_phone = ftp_get_order_phone();
+    $order_whatsapp_url = ftp_whatsapp_url($order_phone, "Hello 120 Fruit Therapy! I'm interested in placing an order. Please assist me.");
+    $support_whatsapp_url = ftp_whatsapp_url("+2349042146929", "Hello 120 Fruit Therapy! I'm interested in learning more about your Special Plans. Please assist me.");
     ob_start();
     ?>
     <section class="ftp-contact ftp-section" id="ftp-contact">
@@ -495,25 +506,25 @@ function ftp_contact_shortcode() {
                 <p class="ftp-section-subtitle">Ready to transform your health? Contact us to learn more about our therapeutic fruit offerings and wellness programs</p>
             </div>
             <div class="ftp-contact-grid">
-                <div class="ftp-contact-card ftp-fade-in-up">
+                <a href="tel:+234<?php echo esc_attr(substr($order_phone, 1)); ?>" class="ftp-contact-card ftp-contact-card-link ftp-fade-in-up">
                     <div class="ftp-contact-icon"><?php echo ftp_get_contact_icon('phone'); ?></div>
                     <h3 class="ftp-contact-title">Orders &amp; Deliveries</h3>
-                    <p class="ftp-contact-number"><?php echo esc_html(ftp_get_order_phone()); ?></p>
-                    <a href="tel:+234<?php echo esc_attr(substr(ftp_get_order_phone(), 1)); ?>" class="ftp-btn ftp-btn-outline">Call Now</a>
-                </div>
-                <div class="ftp-contact-card ftp-fade-in-up">
+                    <p class="ftp-contact-number"><?php echo esc_html($order_phone); ?></p>
+                    <span class="ftp-btn ftp-btn-outline">Call Now</span>
+                </a>
+                <a href="<?php echo esc_url($support_whatsapp_url); ?>" target="_blank" rel="noopener" class="ftp-contact-card ftp-contact-card-link ftp-fade-in-up">
                     <div class="ftp-contact-icon"><?php echo ftp_get_contact_icon('chat'); ?></div>
                     <h3 class="ftp-contact-title">Special Plan Support</h3>
                     <p class="ftp-contact-number">+234 904 214 6929</p>
-                    <a href="tel:+2349042146929" class="ftp-btn ftp-btn-outline">Call Now</a>
-                </div>
-                <div class="ftp-contact-card ftp-fade-in-up">
+                    <span class="ftp-btn ftp-btn-outline">Chat Now</span>
+                </a>
+                <a href="#ftp-map" class="ftp-contact-card ftp-contact-card-link ftp-fade-in-up">
                     <div class="ftp-contact-icon"><?php echo ftp_get_contact_icon('location'); ?></div>
                     <h3 class="ftp-contact-title">Visit Us</h3>
                     <p class="ftp-contact-address">Come experience our wellness sanctuary</p>
                     <p class="ftp-contact-location">University of Nigeria Nsukka, Marlima Building</p>
-                    <a href="#ftp-map" class="ftp-btn ftp-btn-outline">View Map</a>
-                </div>
+                    <span class="ftp-btn ftp-btn-outline">View Map</span>
+                </a>
             </div>
         </div>
     </section>
