@@ -331,7 +331,7 @@ function ftp_gift_packages_shortcode() {
             </div>
             <div class="ftp-packages-grid">
                 <?php foreach ($packages as $package) : 
-                    $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I want to make an enquiry about your " . $package['name'] . " package.");
+                    $whatsapp_url = ftp_whatsapp_url(ftp_get_support_phone(), "Hello 120! I want to make an enquiry about your " . $package['name'] . ".");
                 ?>
                 <a href="<?php echo esc_url($whatsapp_url); ?>" class="ftp-package-card ftp-fade-in-up ftp-clickable-link" target="_blank" rel="noopener">
                     <h3 class="ftp-package-title"><?php echo esc_html($package['name']); ?></h3>
