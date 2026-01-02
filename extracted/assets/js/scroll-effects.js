@@ -83,16 +83,48 @@
             document.body.classList.toggle('ftp-menu-open');
         });
 
-        // Use event delegation for nav links - delay menu close to allow smooth scroll to work
+        // Use event delegation for nav links - close menu FIRST, then scroll
         nav.addEventListener('click', function(e) {
             var link = e.target.closest('.ftp-nav-link');
             if (link) {
-                // Delay closing menu to allow smooth scroll handler to process first
-                setTimeout(function() {
+                var href = link.getAttribute('href');
+                
+                // Check if this is a hash link that should scroll
+                if (href && href.indexOf('#') !== -1) {
+                    e.preventDefault();
+                    
+                    // Close menu immediately
                     nav.classList.remove('active');
                     toggle.classList.remove('active');
                     document.body.classList.remove('ftp-menu-open');
-                }, 50);
+                    
+                    // Extract hash from href
+                    var hashIndex = href.indexOf('#');
+                    var hash = href.substring(hashIndex);
+                    
+                    // Wait for menu close animation, then scroll
+                    setTimeout(function() {
+                        var target = document.querySelector(hash);
+                        if (target) {
+                            var headerHeight = header ? header.offsetHeight : 0;
+                            var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                            
+                            // Update URL
+                            if (history.pushState) {
+                                history.pushState(null, null, hash);
+                            }
+                            
+                            smoothScrollTo(targetPosition, 600);
+                        }
+                    }, 350);
+                } else {
+                    // Regular link - close menu with delay
+                    setTimeout(function() {
+                        nav.classList.remove('active');
+                        toggle.classList.remove('active');
+                        document.body.classList.remove('ftp-menu-open');
+                    }, 100);
+                }
             }
         });
 
