@@ -91,21 +91,24 @@
                 
                 // Check if this is a hash link that should scroll
                 if (href && href.indexOf('#') !== -1) {
-                    e.preventDefault();
-                    
-                    // Close menu immediately
-                    nav.classList.remove('active');
-                    toggle.classList.remove('active');
-                    document.body.classList.remove('ftp-menu-open');
-                    
                     // Extract hash from href
                     var hashIndex = href.indexOf('#');
                     var hash = href.substring(hashIndex);
                     
-                    // Wait for menu close animation, then scroll
-                    setTimeout(function() {
-                        var target = document.querySelector(hash);
-                        if (target) {
+                    // Check if target exists on current page
+                    var target = document.querySelector(hash);
+                    
+                    if (target) {
+                        // Target is on this page - prevent navigation, scroll instead
+                        e.preventDefault();
+                        
+                        // Close menu immediately
+                        nav.classList.remove('active');
+                        toggle.classList.remove('active');
+                        document.body.classList.remove('ftp-menu-open');
+                        
+                        // Wait for menu close animation, then scroll
+                        setTimeout(function() {
                             var headerHeight = header ? header.offsetHeight : 0;
                             var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
                             
@@ -115,8 +118,16 @@
                             }
                             
                             smoothScrollTo(targetPosition, 600);
-                        }
-                    }, 350);
+                        }, 350);
+                    } else {
+                        // Target not on this page - let browser navigate
+                        // Close menu with slight delay to show interaction
+                        setTimeout(function() {
+                            nav.classList.remove('active');
+                            toggle.classList.remove('active');
+                            document.body.classList.remove('ftp-menu-open');
+                        }, 100);
+                    }
                 } else {
                     // Regular link - close menu with delay
                     setTimeout(function() {
@@ -176,6 +187,7 @@
      * Initialize smooth scrolling with event delegation
      */
     function initSmoothScroll() {
+        // Handle click events for smooth scrolling
         document.addEventListener('click', function(e) {
             var anchor = e.target.closest('a[href*="#"]');
             if (!anchor) return;
@@ -183,64 +195,94 @@
             var href = anchor.getAttribute('href');
             if (!href || href === '#') return;
             
-            // Extract the hash from the href (handles both "#section" and "https://site.com/#section")
+            // Extract the hash from the href
             var hashIndex = href.indexOf('#');
             if (hashIndex === -1) return;
             
             var hash = href.substring(hashIndex);
             if (!hash || hash === '#') return;
             
-            // Check if this is a link to the current page (same origin or relative)
-            var isCurrentPage = false;
-            var currentUrl = window.location.origin + window.location.pathname;
-            
-            if (href.startsWith('#')) {
-                // Pure hash link like "#section"
-                isCurrentPage = true;
-            } else {
-                // Full URL with hash - check if it's the current page
-                var linkUrl = href.substring(0, hashIndex);
-                // Remove trailing slash for comparison
-                linkUrl = linkUrl.replace(/\/$/, '');
-                var compareUrl = currentUrl.replace(/\/$/, '');
-                var homeUrl = window.location.origin;
-                
-                // Check if linking to home page and we're on home page
-                if (linkUrl === homeUrl || linkUrl === homeUrl + '/' || 
-                    linkUrl === compareUrl || linkUrl + '/' === currentUrl) {
-                    isCurrentPage = true;
-                }
-            }
-            
-            // Only handle smooth scroll if we're on the same page
-            if (!isCurrentPage) return;
-            
+            // Check if target element exists on this page
             var target = document.querySelector(hash);
-            if (!target) return;
             
-            e.preventDefault();
-            
-            // Update URL hash without scrolling
-            if (history.pushState) {
-                history.pushState(null, null, hash);
+            // If it's a pure hash link (starts with #), scroll on this page
+            if (href.startsWith('#')) {
+                if (!target) return;
+                
+                e.preventDefault();
+                
+                // Update URL hash
+                if (history.pushState) {
+                    history.pushState(null, null, hash);
+                }
+                
+                var headerHeight = header ? header.offsetHeight : 0;
+                var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                smoothScrollTo(targetPosition, 600);
+                return;
             }
             
-            var headerHeight = header ? header.offsetHeight : 0;
-            var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            // For full URLs with hash (like "https://site.com/#section")
+            // If target exists on current page, scroll to it
+            if (target) {
+                e.preventDefault();
+                
+                if (history.pushState) {
+                    history.pushState(null, null, hash);
+                }
+                
+                var headerHeight = header ? header.offsetHeight : 0;
+                var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                smoothScrollTo(targetPosition, 600);
+                return;
+            }
             
-            smoothScrollTo(targetPosition, 600);
+            // Target doesn't exist on this page - let browser navigate normally
+            // The hash will be handled by initHashNavigation on the new page
         });
         
-        // Handle hash in URL on page load
-        if (window.location.hash) {
-            setTimeout(function() {
-                var target = document.querySelector(window.location.hash);
-                if (target) {
-                    var headerHeight = header ? header.offsetHeight : 0;
-                    var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    smoothScrollTo(targetPosition, 600);
-                }
-            }, 100);
+        // Handle hash in URL on page load (separate function for clarity)
+        initHashNavigation();
+    }
+    
+    /**
+     * Handle hash navigation on page load
+     * This runs when the page loads with a hash in the URL
+     */
+    function initHashNavigation() {
+        var hash = window.location.hash;
+        if (!hash || hash === '#') return;
+        
+        // Prevent default browser behavior that might jump to wrong section
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        
+        // Wait for page to fully render, then scroll
+        var scrollToTarget = function() {
+            var target = document.querySelector(hash);
+            if (target) {
+                // Force scroll to top first to prevent visual jump from browser's default behavior
+                window.scrollTo(0, 0);
+                
+                // Use multiple timeouts to ensure we scroll after all other page load events
+                setTimeout(function() {
+                    window.scrollTo(0, 0); // Force again
+                    
+                    setTimeout(function() {
+                        var headerHeight = header ? header.offsetHeight : 0;
+                        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+                        smoothScrollTo(targetPosition, 600);
+                    }, 150);
+                }, 50);
+            }
+        };
+        
+        // Run on load and after a short delay to ensure DOM is ready
+        if (document.readyState === 'complete') {
+            scrollToTarget();
+        } else {
+            window.addEventListener('load', scrollToTarget);
         }
     }
 
