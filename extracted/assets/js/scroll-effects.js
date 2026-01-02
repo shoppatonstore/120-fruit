@@ -6,6 +6,19 @@
 (function() {
     'use strict';
 
+    // IMMEDIATELY prevent browser scroll restoration on page load
+    // This must run before anything else to prevent flash to wrong section
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    
+    // If there's a hash in URL, force scroll to top immediately
+    if (window.location.hash) {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
+    }
+
     // Performance: Use passive event listeners where possible
     var passiveSupported = false;
     try {
@@ -258,31 +271,48 @@
             history.scrollRestoration = 'manual';
         }
         
-        // Wait for page to fully render, then scroll
+        // Force scroll to top IMMEDIATELY on page load
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Wait for page to fully render, then scroll to target
         var scrollToTarget = function() {
             var target = document.querySelector(hash);
-            if (target) {
-                // Force scroll to top first to prevent visual jump from browser's default behavior
-                window.scrollTo(0, 0);
-                
-                // Use multiple timeouts to ensure we scroll after all other page load events
+            if (!target) return;
+            
+            // Force scroll to top again before calculating position
+            window.scrollTo(0, 0);
+            
+            // Multiple delayed scroll attempts to ensure it works after page refresh
+            var attempts = [100, 300, 600, 1000];
+            attempts.forEach(function(delay) {
                 setTimeout(function() {
-                    window.scrollTo(0, 0); // Force again
-                    
-                    setTimeout(function() {
-                        var headerHeight = header ? header.offsetHeight : 0;
+                    var target = document.querySelector(hash);
+                    if (target) {
+                        var headerHeight = header ? header.offsetHeight : 80;
                         var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-                        smoothScrollTo(targetPosition, 600);
-                    }, 150);
-                }, 50);
-            }
+                        
+                        // Only scroll if we're not already near the target
+                        var currentPos = window.pageYOffset;
+                        var distance = Math.abs(currentPos - targetPosition);
+                        if (distance > 50) {
+                            smoothScrollTo(targetPosition, 600);
+                        }
+                    }
+                }, delay);
+            });
         };
         
-        // Run on load and after a short delay to ensure DOM is ready
+        // Schedule scroll for after page fully loads
         if (document.readyState === 'complete') {
-            scrollToTarget();
+            // Page already loaded - schedule immediately
+            setTimeout(scrollToTarget, 50);
         } else {
-            window.addEventListener('load', scrollToTarget);
+            // Wait for page to complete loading
+            window.addEventListener('load', function() {
+                setTimeout(scrollToTarget, 50);
+            });
         }
     }
 
