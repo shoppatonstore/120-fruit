@@ -2466,10 +2466,8 @@ a.ftp-offer-card.ftp-clickable-link:hover {
     }
 }
 
-/* Smooth scroll behavior */
-html {
-    scroll-behavior: smooth;
-}
+/* Smooth scroll behavior - handled by JavaScript for better control */
+/* html { scroll-behavior: smooth; } - Disabled: JS handles scroll for better cross-page navigation */
 
 /* Accessibility: Reduced motion support */
 @media (prefers-reduced-motion: reduce) {

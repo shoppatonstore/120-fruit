@@ -12,12 +12,8 @@
         history.scrollRestoration = 'manual';
     }
     
-    // If there's a hash in URL, force scroll to top immediately
-    if (window.location.hash) {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        if (document.body) document.body.scrollTop = 0;
-    }
+    // Flag to track if we've already handled hash navigation
+    var hashNavigationHandled = false;
 
     // Performance: Use passive event listeners where possible
     var passiveSupported = false;
@@ -82,6 +78,28 @@
     }
 
     /**
+     * Direct scroll to element - simple and reliable
+     */
+    function scrollToElement(targetElement, animate) {
+        if (!targetElement) return;
+        
+        var headerHeight = header ? header.offsetHeight : 80;
+        var elementPosition = targetElement.getBoundingClientRect().top;
+        var offsetPosition = elementPosition + window.pageYOffset - headerHeight - 10;
+        
+        if (animate !== false) {
+            // Use native smooth scroll
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        } else {
+            // Instant scroll
+            window.scrollTo(0, offsetPosition);
+        }
+    }
+
+    /**
      * Initialize mobile menu toggle with event delegation
      */
     function initMobileMenu() {
@@ -99,56 +117,49 @@
         // Use event delegation for nav links - close menu FIRST, then scroll
         nav.addEventListener('click', function(e) {
             var link = e.target.closest('.ftp-nav-link');
-            if (link) {
-                var href = link.getAttribute('href');
+            if (!link) return;
+            
+            var href = link.getAttribute('href');
+            if (!href) return;
+            
+            // Check if this is a hash link
+            var hashIndex = href.indexOf('#');
+            if (hashIndex === -1) {
+                // Regular link - close menu
+                setTimeout(function() {
+                    nav.classList.remove('active');
+                    toggle.classList.remove('active');
+                    document.body.classList.remove('ftp-menu-open');
+                }, 100);
+                return;
+            }
+            
+            var hash = href.substring(hashIndex);
+            var target = document.querySelector(hash);
+            
+            if (target) {
+                // Target is on this page - prevent navigation, scroll instead
+                e.preventDefault();
                 
-                // Check if this is a hash link that should scroll
-                if (href && href.indexOf('#') !== -1) {
-                    // Extract hash from href
-                    var hashIndex = href.indexOf('#');
-                    var hash = href.substring(hashIndex);
-                    
-                    // Check if target exists on current page
-                    var target = document.querySelector(hash);
-                    
-                    if (target) {
-                        // Target is on this page - prevent navigation, scroll instead
-                        e.preventDefault();
-                        
-                        // Close menu immediately
-                        nav.classList.remove('active');
-                        toggle.classList.remove('active');
-                        document.body.classList.remove('ftp-menu-open');
-                        
-                        // Wait for menu close animation, then scroll
-                        setTimeout(function() {
-                            var headerHeight = header ? header.offsetHeight : 0;
-                            var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-                            
-                            // Update URL
-                            if (history.pushState) {
-                                history.pushState(null, null, hash);
-                            }
-                            
-                            smoothScrollTo(targetPosition, 600);
-                        }, 350);
-                    } else {
-                        // Target not on this page - let browser navigate
-                        // Close menu with slight delay to show interaction
-                        setTimeout(function() {
-                            nav.classList.remove('active');
-                            toggle.classList.remove('active');
-                            document.body.classList.remove('ftp-menu-open');
-                        }, 100);
+                // Close menu immediately
+                nav.classList.remove('active');
+                toggle.classList.remove('active');
+                document.body.classList.remove('ftp-menu-open');
+                
+                // Wait for menu close animation, then scroll
+                setTimeout(function() {
+                    scrollToElement(target, true);
+                    // Update URL
+                    if (history.pushState) {
+                        history.pushState(null, null, hash);
                     }
-                } else {
-                    // Regular link - close menu with delay
-                    setTimeout(function() {
-                        nav.classList.remove('active');
-                        toggle.classList.remove('active');
-                        document.body.classList.remove('ftp-menu-open');
-                    }, 100);
-                }
+                }, 350);
+            } else {
+                // Target not on this page - close menu, let browser navigate
+                nav.classList.remove('active');
+                toggle.classList.remove('active');
+                document.body.classList.remove('ftp-menu-open');
+                // Browser will handle navigation
             }
         });
 
@@ -208,6 +219,9 @@
             var href = anchor.getAttribute('href');
             if (!href || href === '#') return;
             
+            // Skip if inside mobile nav (handled separately)
+            if (anchor.closest('.ftp-nav')) return;
+            
             // Extract the hash from the href
             var hashIndex = href.indexOf('#');
             if (hashIndex === -1) return;
@@ -218,10 +232,8 @@
             // Check if target element exists on this page
             var target = document.querySelector(hash);
             
-            // If it's a pure hash link (starts with #), scroll on this page
-            if (href.startsWith('#')) {
-                if (!target) return;
-                
+            if (target) {
+                // Target exists on this page - scroll to it
                 e.preventDefault();
                 
                 // Update URL hash
@@ -229,29 +241,9 @@
                     history.pushState(null, null, hash);
                 }
                 
-                var headerHeight = header ? header.offsetHeight : 0;
-                var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-                smoothScrollTo(targetPosition, 600);
-                return;
+                scrollToElement(target, true);
             }
-            
-            // For full URLs with hash (like "https://site.com/#section")
-            // If target exists on current page, scroll to it
-            if (target) {
-                e.preventDefault();
-                
-                if (history.pushState) {
-                    history.pushState(null, null, hash);
-                }
-                
-                var headerHeight = header ? header.offsetHeight : 0;
-                var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-                smoothScrollTo(targetPosition, 600);
-                return;
-            }
-            
-            // Target doesn't exist on this page - let browser navigate normally
-            // The hash will be handled by initHashNavigation on the new page
+            // If target doesn't exist, let browser navigate normally
         });
         
         // Handle hash in URL on page load (separate function for clarity)
@@ -265,53 +257,34 @@
     function initHashNavigation() {
         var hash = window.location.hash;
         if (!hash || hash === '#') return;
+        if (hashNavigationHandled) return;
         
-        // Prevent default browser behavior that might jump to wrong section
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        hashNavigationHandled = true;
         
-        // Force scroll to top IMMEDIATELY on page load
+        // Force scroll to very top IMMEDIATELY 
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
         
-        // Wait for page to fully render, then scroll to target
-        var scrollToTarget = function() {
+        // Function to perform the scroll to target
+        var performScroll = function() {
             var target = document.querySelector(hash);
             if (!target) return;
             
-            // Force scroll to top again before calculating position
-            window.scrollTo(0, 0);
-            
-            // Multiple delayed scroll attempts to ensure it works after page refresh
-            var attempts = [100, 300, 600, 1000];
-            attempts.forEach(function(delay) {
-                setTimeout(function() {
-                    var target = document.querySelector(hash);
-                    if (target) {
-                        var headerHeight = header ? header.offsetHeight : 80;
-                        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-                        
-                        // Only scroll if we're not already near the target
-                        var currentPos = window.pageYOffset;
-                        var distance = Math.abs(currentPos - targetPosition);
-                        if (distance > 50) {
-                            smoothScrollTo(targetPosition, 600);
-                        }
-                    }
-                }, delay);
-            });
+            // Scroll to the target
+            scrollToElement(target, true);
         };
         
-        // Schedule scroll for after page fully loads
+        // Wait for everything to be loaded
         if (document.readyState === 'complete') {
-            // Page already loaded - schedule immediately
-            setTimeout(scrollToTarget, 50);
+            // Page already loaded - scroll after brief delay for layout
+            setTimeout(performScroll, 200);
         } else {
             // Wait for page to complete loading
             window.addEventListener('load', function() {
-                setTimeout(scrollToTarget, 50);
+                // After load, force scroll to top first, then scroll to target
+                window.scrollTo(0, 0);
+                setTimeout(performScroll, 300);
             });
         }
     }
